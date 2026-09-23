@@ -12,7 +12,7 @@ SEKAI / SIX is an unofficial, browser-based personal project inspired by the fee
 - Audio-informed, deterministic practice-chart generation at Easy, Normal, and Hard, plus a playable demo chart.
 - Chart Studio with a waveform, beat grid, BPM and offset controls, taps, holds, flicks, accents, test play, and JSON import/export.
 - A 721-entry metadata catalog retained in `catalog.json`; the live library only shows tracks with audio hosted in the deployment.
-- Search, favorites, custom audio, and a bundled starter selection. At present, four songs have audio files on-site.
+- Search, favorites, custom audio, and a bundled starter selection. Forty songs currently have audio files on-site.
 - Character themes for Emu Otori, Ichika Hoshino, Saki Tenma, Minori Hanasato, Kohane Azusawa, Tsukasa Tenma, Kanade Yoisaki, and Hatsune Miku, plus a Classic theme.
 - Hit-sound styles, volume and timing settings, lane perspective options, effects, and no-fail practice.
 - Optional Google and Discord sign-in with Supabase-backed settings, favorites, charts, and scores.
