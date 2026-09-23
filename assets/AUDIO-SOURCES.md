@@ -42,3 +42,5 @@ The 36 imported MP3 files below were obtained from the corresponding audio URLs 
 | 68 | Dance Robot Dance |
 
 Source host: `storage.sekai.best` (the SEKAI Viewer asset archive). The files are in `assets/<song-id>.mp3`, listed in `assets/manifest.json`; `scripts/download-catalog-audio.mjs` records the import procedure.
+
+The ten hosted songs whose jackets were not already local now also have bundled cover art (`assets/55.png`, `assets/57.png`, `assets/60.png`, `assets/61.png`, `assets/62.png`, `assets/63.png`, `assets/64.png`, `assets/66.png`, `assets/67.png`, and `assets/68.png`). These use the corresponding cover URLs already recorded in `catalog.json`; `scripts/download-missing-covers.mjs` records that import.

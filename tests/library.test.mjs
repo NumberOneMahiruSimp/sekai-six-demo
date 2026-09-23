@@ -13,6 +13,8 @@ test('the library view only includes catalog songs with site-hosted audio',()=>{
   for (const id of [201,1,47,110]) assert.ok(hosted.some(song=>song.id===id), `preserve the original hosted song ${id}`);
   assert.ok(hosted.every(song=>manifest[song.id]?.audio));
   assert.ok(hosted.every(song=>existsSync(new URL(`../${manifest[song.id].audio}`,import.meta.url))), 'every visible song has a local audio file');
+  assert.ok(hosted.every(song=>manifest[song.id]?.cover), 'every playable song has a local cover path');
+  assert.ok(hosted.every(song=>existsSync(new URL(`../${manifest[song.id].cover}`,import.meta.url))), 'every visible song has a local cover file');
   assert.equal(hosted.filter(song=>manifest[song.id].audio.endsWith('.mp3')).length,36);
   assert.equal(songs.length-hosted.length,681,'keep the rest of the catalog while hiding tracks without site-hosted audio');
 });
