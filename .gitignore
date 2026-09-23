@@ -1,0 +1,12 @@
+node_modules/
+backups/
+qa/*.png
+qa/*.json
+qa/v2/*.png
+qa/v2/*.json
+.vercel/
+.env
+.env.*
+!.env.example
+
+.vercel

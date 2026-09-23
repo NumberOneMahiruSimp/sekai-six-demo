@@ -1,0 +1,13 @@
+import {createRequire} from 'node:module';
+import fs from 'node:fs';
+const require=createRequire(import.meta.url);
+const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1000}});
+await page.goto('http://127.0.0.1:5173');await page.locator('.song-card').first().waitFor();
+await page.evaluate(()=>Promise.all([...document.images].filter(img=>img.getBoundingClientRect().top<innerHeight&&img.getBoundingClientRect().width>0).map(img=>img.decode().catch(()=>{}))));
+await page.screenshot({path:'qa/v2/library-desktop.png'});
+const desktop=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,images:[...document.querySelectorAll('.song-card img')].slice(0,8).map(i=>({src:i.getAttribute('src'),complete:i.complete,natural:i.naturalWidth,box:i.getBoundingClientRect().height,parent:i.parentElement.getBoundingClientRect().height})),missingAlt:[...document.images].filter(i=>!i.hasAttribute('alt')).length,unnamedButtons:[...document.querySelectorAll('button')].filter(b=>!b.textContent.trim()&&!b.getAttribute('aria-label')).length}));
+await page.setViewportSize({width:390,height:844});await page.evaluate(()=>Promise.all([...document.images].filter(img=>img.getBoundingClientRect().top<innerHeight&&img.getBoundingClientRect().width>0).map(img=>img.decode().catch(()=>{}))));await page.screenshot({path:'qa/v2/library-mobile.png'});
+const mobile=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth}));
+fs.writeFileSync('qa/v2/visual-check.json',JSON.stringify({desktop,mobile},null,2));console.log(JSON.stringify({desktop,mobile}));await browser.close();

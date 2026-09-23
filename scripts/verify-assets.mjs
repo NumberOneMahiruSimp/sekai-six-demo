@@ -1,0 +1,10 @@
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+const require=createRequire(import.meta.url);
+const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const page=await browser.newPage({viewport:{width:390,height:844}});
+await page.goto('http://127.0.0.1:5173');await page.locator('.song-card').first().waitFor();
+const result=await page.evaluate(async()=>{const {demoChart,noteTime,validateChart}=await import('/chart.js');const songs=await fetch('/catalog.json').then(r=>r.json());const manifest=await fetch('/assets/manifest.json').then(r=>r.json());const ac=new AudioContext();const results=[];for(const song of songs.filter(s=>manifest[s.id]?.audio)){const b=await ac.decodeAudioData(await fetch('/'+manifest[song.id].audio).then(r=>r.arrayBuffer()));for(const difficulty of ['easy','normal','hard']){const chart=validateChart(demoChart(song,difficulty));const end=Math.max(...chart.notes.map(n=>noteTime(n,chart)+n.duration*60/chart.bpm));results.push({song:song.title,difficulty,duration:b.duration,chartEnd:end,fits:end<b.duration});}}await ac.close();return results;});
+assert.ok(result.every(r=>r.fits));console.log(JSON.stringify(result,null,2));
+await page.locator('#playSong').click();await page.locator('#game').waitFor({state:'visible'});await page.waitForTimeout(12500);await page.screenshot({path:'qa/game-mobile.png'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await browser.close();

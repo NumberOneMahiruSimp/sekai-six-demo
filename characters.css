@@ -1,0 +1,37 @@
+/* Shared artwork treatment for every character; palettes remain in theme.css. */
+:root[data-theme]:not([data-theme="classic"]):not([data-theme="emu"]) .emu-hero-copy .eyebrow,
+:root[data-theme]:not([data-theme="classic"]):not([data-theme="emu"]) .emu-hero-tag { color:var(--accent-dark); }
+:root[data-theme]:not([data-theme="classic"]):not([data-theme="emu"]) .emu-hero-copy h2 { color:var(--text); }
+:root[data-theme]:not([data-theme="classic"]):not([data-theme="emu"]) .emu-hero-copy > p:not(.eyebrow) { color:var(--muted); }
+:root[data-theme]:not([data-theme="classic"]) .theme-chip img,
+.theme-option img { background:var(--theme-soft,var(--bg)); }
+.theme-option { min-height:76px; padding-right:22px; }
+.theme-option strong { font-size:13px; line-height:1.4; }
+.theme-option small { font-size:11px; line-height:1.5; }
+.theme-option img { width:48px; height:48px; object-fit:cover; }
+.theme-option:focus-within { outline:2px solid var(--accent-dark); outline-offset:3px; }
+:root[data-theme="saki"] .primary,
+:root[data-theme="tsukasa"] .primary,
+:root[data-theme="kohane"] .primary { color:#462a0b; }
+:root[data-theme="miku"] .primary { color:#103c3b; }
+:root[data-theme="ichika"] .primary { background:#2571b0; }
+:root[data-theme="minori"] .primary { background:#ba2861; }
+:root[data-theme="miku"] { --accent-dark:#126a64; }
+:root[data-theme="saki"] { --accent-dark:#855514; }
+:root[data-theme="tsukasa"] { --accent-dark:#8b5018; }
+:root[data-theme="minori"] { --accent-dark:#ad2459; }
+:root[data-theme="kohane"] { --accent-dark:#954615; }
+:root[data-theme="miku"] .game-character { object-fit:contain; object-position:85% 18%; }
+@media(min-width:761px) {
+  :root[data-theme]:not([data-theme="emu"]) .emu-hero-art { transform:translateY(22px); }
+}
+
+@media(max-width:760px) {
+  .theme-options { grid-template-columns:1fr 1fr; gap:8px; }
+  #settingsDialog .theme-option { display:flex; flex-direction:column; align-items:flex-start; gap:7px; min-width:0; padding:12px; }
+  .theme-option img { width:43px; height:43px; }
+  .theme-option strong { font-size:12px; }
+  .theme-option small { font-size:10px; }
+  .emu-hero-copy .eyebrow { max-width:165px; }
+}
+@media(prefers-reduced-motion:reduce) { .emu-hero-art { transition:none; } }

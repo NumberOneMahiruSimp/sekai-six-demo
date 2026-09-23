@@ -1,0 +1,1442 @@
+/* Emu's stage: real character artwork with a quiet, readable interface. */
+:root[data-theme="emu"] {
+  --bg: #fffaf8;
+  --surface: #ffffff;
+  --text: #3d3140;
+  --muted: #786874;
+  --line: #eadfe3;
+  --accent: #d9478b;
+  --accent-dark: #a32265;
+  --pink: #d9478b;
+  --purple: #8f72ae;
+  --theme-soft: #fff0f5;
+  --theme-cream: #fff7df;
+  --theme-shadow: 0 8px 28px #73425109;
+}
+
+.emu-hero, .theme-chip, .game-character { display: none; }
+
+:root[data-theme="emu"] body { background: var(--bg); }
+:root[data-theme="emu"] button:focus-visible,
+:root[data-theme="emu"] a:focus-visible,
+:root[data-theme="emu"] input:focus-visible,
+:root[data-theme="emu"] select:focus-visible { outline-color: #c52e77; }
+:root[data-theme="emu"] .topbar {
+  height: 76px;
+  background: #fffdfb;
+  border-bottom-color: #f0e0e7;
+}
+:root[data-theme="emu"] .brand { letter-spacing: 1px; font-size: 21px; }
+:root[data-theme="emu"] .brand-icon { color: #df5794; }
+:root[data-theme="emu"] .slash { color: #d88ba9; }
+:root[data-theme="emu"] .demo-tag { color: #806573; background: #fff8ee; border-color: #eddfd8; }
+:root[data-theme="emu"] .top-actions { gap: 17px; }
+:root[data-theme="emu"] .theme-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 13px 5px 5px;
+  min-height: 40px;
+  border: 1px solid #f0cadb;
+  background: #fff5f8;
+  border-radius: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #a22c63;
+}
+.theme-chip img { width: 29px; height: 29px; border-radius: 50%; object-fit: cover; background: #ffd7e7; }
+:root[data-theme="emu"] .library { min-height: calc(100vh - 76px); }
+:root[data-theme="emu"] .collection { padding-top: 26px; }
+:root[data-theme="emu"] .emu-hero {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: 196px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  background: linear-gradient(110deg, #fff0f5 0%, #fff1f3 60%, #fff3d5 100%);
+  overflow: hidden;
+  border: 1px solid #f2d9e1;
+}
+.emu-hero::before {
+  content: '';
+  width: 270px;
+  height: 270px;
+  position: absolute;
+  border: 28px solid #ffffff80;
+  border-radius: 50%;
+  right: -34px;
+  top: -56px;
+  z-index: -1;
+}
+.emu-hero::after {
+  content: '✦';
+  position: absolute;
+  right: 34%;
+  top: 37px;
+  color: #dc9c43;
+  font-size: 22px;
+  transform: rotate(15deg);
+  z-index: -1;
+}
+.emu-hero-copy { position: relative; z-index: 2; padding: 25px 28px; width: 66%; }
+.emu-hero-copy .eyebrow { font-size: 9px; letter-spacing: 1.5px; color: #9c3e68; margin-bottom: 12px; }
+.emu-hero-copy h2 { font-size: clamp(24px, 2.2vw, 31px); letter-spacing: -.9px; line-height: 1.12; font-weight: 650; margin-bottom: 10px; color: #69374f; }
+.emu-hero-copy > p:not(.eyebrow) { font-size: 11px; color: #855d70; margin-bottom: 12px; }
+.emu-hero-tag { font-size: 9px; letter-spacing: 1.1px; color: #8c5527; font-weight: 650; }
+.emu-hero-art { position: absolute; width: 335px; max-width: none; height: auto; right: 12px; top: -164px; pointer-events: none; }
+:root[data-theme="emu"] .section-heading { margin-bottom: 24px; }
+:root[data-theme="emu"] h1 { font-size: 30px; letter-spacing: -1px; }
+:root[data-theme="emu"] .tiny-star { color: #d580a5; }
+:root[data-theme="emu"] .primary { background: #c63578; color: white; box-shadow: 0 3px 9px #ce38791c; }
+:root[data-theme="emu"] .primary:hover { background: #b92969; }
+:root[data-theme="emu"] .secondary { background: #fffdfd; }
+:root[data-theme="emu"] .secondary:hover { background: #fff2f7; border-color: #db85aa; }
+:root[data-theme="emu"] .search { box-shadow: var(--theme-shadow); }
+:root[data-theme="emu"] .search input { color: #3d3140; }
+:root[data-theme="emu"] .search input::placeholder { color: #85737d; opacity: 1; }
+:root[data-theme="emu"] .filter-row { margin-bottom: 23px; gap: 7px; }
+:root[data-theme="emu"] .filter { min-height: 35px; }
+:root[data-theme="emu"] .filter.active { background: #fae3ed; border-color: #f1c6d7; color: #a12d63; }
+:root[data-theme="emu"] .song-grid { gap: 22px 16px; }
+:root[data-theme="emu"] .cover-wrap { border-radius: 10px; box-shadow: 0 4px 14px #78516212; }
+:root[data-theme="emu"] .song-card.selected .cover-wrap { border-color: #d9478b; box-shadow: 0 0 0 3px #d9478b18; }
+:root[data-theme="emu"] .card-title { font-size: 12px; margin-top: 10px; }
+:root[data-theme="emu"] .card-badge { background: #fff9f0f5; color: #73513a; }
+:root[data-theme="emu"] .selected-check { background: #d9478b; }
+:root[data-theme="emu"] .song-detail {
+  background: linear-gradient(160deg, #fff1f6, #fffdf8 56%, #fffaf8);
+  border-left-color: #eddae3;
+  min-height: calc(100vh - 76px);
+}
+:root[data-theme="emu"] .detail-cover { transform: rotate(-2deg); box-shadow: 0 12px 28px #91527520; }
+:root[data-theme="emu"] .unit-tag { background: #fae4ee; color: #9a3f69; }
+:root[data-theme="emu"] .difficulty.active { background: #fff0f6; border-color: #d9478b; color: #aa2b66; }
+:root[data-theme="emu"] .key-guide kbd { border-color: #e4cdd7; color: #795467; }
+:root[data-theme="emu"] .audio-note { color: #796775; }
+:root[data-theme="emu"] .library-foot { color: #84707b; }
+:root[data-theme="emu"] .editor-tools,
+:root[data-theme="emu"] .timeline { box-shadow: var(--theme-shadow); }
+:root[data-theme="emu"] .note-tools .active { background: #ffe6f0; color: #a12d63; }
+:root[data-theme="emu"] .note-cell:hover { background: #fff0f6; }
+:root[data-theme="emu"] .lane-labels { background: #fff4f8; }
+:root[data-theme="emu"] .beat-label { background: #fffbfd; }
+:root[data-theme="emu"] #waveform { background: #fff7f9; }
+:root[data-theme="emu"] dialog { background: #fffdfb; border-color: #ead0dd; box-shadow: 0 30px 90px #61374c30; }
+:root[data-theme="emu"] dialog::backdrop { background: #3b203d70; }
+:root[data-theme="emu"] label { color: #705466; }
+:root[data-theme="emu"] .game {
+  height: calc(100dvh - 76px);
+  background: #21192b;
+  isolation: isolate;
+}
+:root[data-theme="emu"] .game-character {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: .23;
+  filter: saturate(.65);
+  pointer-events: none;
+  z-index: -2;
+}
+:root[data-theme="emu"] .game::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #1913217a 0%, #24152f30 35%, #171221c9 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+:root[data-theme="emu"] .game canvas { position: relative; z-index: 0; }
+:root[data-theme="emu"] .game-top,
+:root[data-theme="emu"] .game-song,
+:root[data-theme="emu"] .game-bottom,
+:root[data-theme="emu"] .combo-display,
+:root[data-theme="emu"] .judgment { z-index: 1; }
+:root[data-theme="emu"] .game-top { color: #fff8fc; }
+:root[data-theme="emu"] .glass-button { background: #2d1d35a6; border-color: #ffe2ef3b; color: #fff4fa; backdrop-filter: blur(8px); }
+:root[data-theme="emu"] .game-song strong { text-shadow: 0 2px 12px #160b22; }
+:root[data-theme="emu"] .game-song span,
+:root[data-theme="emu"] .score-block small,
+:root[data-theme="emu"] .life-block,
+:root[data-theme="emu"] .game-bottom { color: #e0cddd; }
+:root[data-theme="emu"] .combo-display { color: #fff0bb; }
+:root[data-theme="emu"] .combo-display strong { text-shadow: 0 2px 20px #ed83bc44; }
+:root[data-theme="emu"] .game-overlay { background: #241329d9; z-index: 3; }
+:root[data-theme="emu"] .result-score { color: #ffd2e7; }
+:root[data-theme="emu"] #gameProgress { background: #ed80b0; z-index: 2; }
+
+@media (min-width: 1450px) {
+  :root[data-theme="emu"] .emu-hero { height: 210px; }
+  .emu-hero-copy { padding: 28px 32px; }
+  .emu-hero-art { width: 355px; top: -173px; right: 27px; }
+}
+@media (max-width: 1100px) {
+  .emu-hero-copy { padding: 25px 22px; width: 68%; }
+  .emu-hero-copy h2 { font-size: 26px; }
+  .emu-hero-copy .eyebrow { max-width: 220px; line-height: 1.5; margin-bottom: 8px; }
+  .emu-hero-copy > p:not(.eyebrow) { max-width: 220px; line-height: 1.5; }
+  .emu-hero-art { right: -35px; width: 300px; top: -143px; }
+  :root[data-theme="emu"] .local-status { display: none; }
+}
+@media (max-width: 760px) {
+  :root[data-theme="emu"] .topbar { height: 68px; padding: 0 16px; }
+  :root[data-theme="emu"] .brand { font-size: 17px; gap: 7px; }
+  :root[data-theme="emu"] .top-actions { gap: 8px; }
+  :root[data-theme="emu"] .theme-chip { padding: 3px; min-height: 36px; width: 36px; justify-content: center; }
+  .theme-chip img { width: 28px; height: 28px; }
+  .theme-chip span { display: none; }
+  :root[data-theme="emu"] .collection { padding: 18px 16px 24px; }
+  :root[data-theme="emu"] .emu-hero { height: 181px; margin-bottom: 26px; border-radius: 13px; }
+  .emu-hero-copy { width: 73%; padding: 20px 17px; }
+  .emu-hero-copy .eyebrow { font-size: 8px; letter-spacing: .8px; max-width: 170px; margin-bottom: 10px; }
+  .emu-hero-copy h2 { font-size: 24px; line-height: 1.13; max-width: 210px; }
+  .emu-hero-copy > p:not(.eyebrow) { font-size: 10px; width: 150px; line-height: 1.5; margin-bottom: 10px; }
+  .emu-hero-tag { font-size: 8px; }
+  .emu-hero-art { width: 258px; top: -108px; right: -36px; }
+  .emu-hero::after { right: 20px; top: 20px; font-size: 17px; }
+  .emu-hero::before { width: 200px; height: 200px; border-width: 19px; right: -71px; top: 7px; }
+  :root[data-theme="emu"] .section-heading { margin-bottom: 20px; }
+  :root[data-theme="emu"] .section-heading h1 { font-size: 26px; }
+  :root[data-theme="emu"] .section-heading .muted { line-height: 1.5; }
+  :root[data-theme="emu"] .song-grid { gap: 19px 10px; }
+  :root[data-theme="emu"] .song-card .card-title { font-size: 11px; }
+  :root[data-theme="emu"] .song-detail { min-height: 0; padding: 24px 20px; }
+  :root[data-theme="emu"] .library { min-height: calc(100vh - 68px); }
+  :root[data-theme="emu"] .game { height: calc(100dvh - 68px); }
+  :root[data-theme="emu"] .game-character { object-position: 59% center; opacity: .18; }
+}
+@media (max-width: 370px) {
+  .emu-hero-copy h2 { font-size: 21px; }
+  .emu-hero-art { right: -48px; }
+  :root[data-theme="emu"] .section-heading h1 { font-size: 24px; }
+  :root[data-theme="emu"] .filter { font-size: 11px; padding-left: 10px; padding-right: 10px; }
+}
+
+/* ============================================
+   ICHIKA HOSHINO - Leo/need - Blue
+   ============================================ */
+:root[data-theme="ichika"] {
+  --bg: #f8fbff;
+  --surface: #ffffff;
+  --text: #2d3d4d;
+  --muted: #6a7a8a;
+  --line: #dfe8f0;
+  --accent: #4a9fd8;
+  --accent-dark: #2571b0;
+  --pink: #4a9fd8;
+  --purple: #6b9dd4;
+  --theme-soft: #e8f4ff;
+  --theme-cream: #f0f8ff;
+  --theme-shadow: 0 8px 28px #3b5d7709;
+}
+
+:root[data-theme="ichika"] body { background: var(--bg); }
+:root[data-theme="ichika"] button:focus-visible,
+:root[data-theme="ichika"] a:focus-visible,
+:root[data-theme="ichika"] input:focus-visible,
+:root[data-theme="ichika"] select:focus-visible { outline-color: #3a8bc4; }
+:root[data-theme="ichika"] .topbar {
+  height: 76px;
+  background: #fdfeff;
+  border-bottom-color: #dfe9f2;
+}
+:root[data-theme="ichika"] .brand { letter-spacing: 1px; font-size: 21px; }
+:root[data-theme="ichika"] .brand-icon { color: #5aa5db; }
+:root[data-theme="ichika"] .slash { color: #8bbde0; }
+:root[data-theme="ichika"] .demo-tag { color: #5a6d7d; background: #f0f7ff; border-color: #d8e7f0; }
+:root[data-theme="ichika"] .top-actions { gap: 17px; }
+:root[data-theme="ichika"] .theme-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 13px 5px 5px;
+  min-height: 40px;
+  border: 1px solid #c5dff0;
+  background: #f0f8ff;
+  border-radius: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #2571b0;
+}
+:root[data-theme="ichika"] .library { min-height: calc(100vh - 76px); }
+:root[data-theme="ichika"] .collection { padding-top: 26px; }
+:root[data-theme="ichika"] .emu-hero {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: 196px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  background: linear-gradient(110deg, #e8f4ff 0%, #f0f8ff 60%, #f8fcff 100%);
+  overflow: hidden;
+  border: 1px solid #d9e9f5;
+}
+.ichika-hero::before {
+  content: '';
+  width: 270px;
+  height: 270px;
+  position: absolute;
+  border: 28px solid #ffffff80;
+  border-radius: 50%;
+  right: -34px;
+  top: -56px;
+  z-index: -1;
+}
+.ichika-hero::after {
+  content: '✦';
+  position: absolute;
+  right: 34%;
+  top: 37px;
+  color: #4a9fd8;
+  font-size: 22px;
+  transform: rotate(15deg);
+  z-index: -1;
+}
+:root[data-theme="ichika"] .section-heading { margin-bottom: 24px; }
+:root[data-theme="ichika"] h1 { font-size: 30px; letter-spacing: -1px; }
+:root[data-theme="ichika"] .tiny-star { color: #6ba8d8; }
+:root[data-theme="ichika"] .primary { background: #4a9fd8; color: white; box-shadow: 0 3px 9px #4a9fd81c; }
+:root[data-theme="ichika"] .primary:hover { background: #3888c0; }
+:root[data-theme="ichika"] .secondary { background: #fdfdff; }
+:root[data-theme="ichika"] .secondary:hover { background: #f0f7ff; border-color: #7eb3db; }
+:root[data-theme="ichika"] .search { box-shadow: var(--theme-shadow); }
+:root[data-theme="ichika"] .search input { color: #2d3d4d; }
+:root[data-theme="ichika"] .search input::placeholder { color: #6a7d8d; opacity: 1; }
+:root[data-theme="ichika"] .filter-row { margin-bottom: 23px; gap: 7px; }
+:root[data-theme="ichika"] .filter { min-height: 35px; }
+:root[data-theme="ichika"] .filter.active { background: #e3f2ff; border-color: #c6dff0; color: #2571b0; }
+:root[data-theme="ichika"] .song-grid { gap: 22px 16px; }
+:root[data-theme="ichika"] .cover-wrap { border-radius: 10px; box-shadow: 0 4px 14px #4a6d8212; }
+:root[data-theme="ichika"] .song-card.selected .cover-wrap { border-color: #4a9fd8; box-shadow: 0 0 0 3px #4a9fd818; }
+:root[data-theme="ichika"] .card-title { font-size: 12px; margin-top: 10px; }
+:root[data-theme="ichika"] .card-badge { background: #f0f8fff5; color: #3a5a6a; }
+:root[data-theme="ichika"] .selected-check { background: #4a9fd8; }
+:root[data-theme="ichika"] .song-detail {
+  background: linear-gradient(160deg, #f0f8ff, #fdfeff 56%, #f8fbff);
+  border-left-color: #dae8f0;
+  min-height: calc(100vh - 76px);
+}
+:root[data-theme="ichika"] .detail-cover { transform: rotate(-2deg); box-shadow: 0 12px 28px #4a6d8220; }
+:root[data-theme="ichika"] .unit-tag { background: #e4f2ff; color: #2571b0; }
+:root[data-theme="ichika"] .difficulty.active { background: #f0f8ff; border-color: #4a9fd8; color: #2571b0; }
+:root[data-theme="ichika"] .key-guide kbd { border-color: #d4dfe7; color: #4a5d6d; }
+:root[data-theme="ichika"] .audio-note { color: #6a7a8a; }
+:root[data-theme="ichika"] .library-foot { color: #6a7d8d; }
+:root[data-theme="ichika"] .editor-tools,
+:root[data-theme="ichika"] .timeline { box-shadow: var(--theme-shadow); }
+:root[data-theme="ichika"] .note-tools .active { background: #e6f3ff; color: #2571b0; }
+:root[data-theme="ichika"] .note-cell:hover { background: #f0f8ff; }
+:root[data-theme="ichika"] .lane-labels { background: #f4f9ff; }
+:root[data-theme="ichika"] .beat-label { background: #fbfdff; }
+:root[data-theme="ichika"] #waveform { background: #f7faff; }
+:root[data-theme="ichika"] dialog { background: #fdfeff; border-color: #d0def0; box-shadow: 0 30px 90px #3a5d7730; }
+:root[data-theme="ichika"] dialog::backdrop { background: #1d2d3d70; }
+:root[data-theme="ichika"] label { color: #4a5d6d; }
+:root[data-theme="ichika"] .game {
+  height: calc(100dvh - 76px);
+  background: #1a2230;
+  isolation: isolate;
+}
+:root[data-theme="ichika"] .game-character {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: .23;
+  filter: saturate(.65);
+  pointer-events: none;
+  z-index: -2;
+}
+:root[data-theme="ichika"] .game::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #13192a7a 0%, #15223030 35%, #1217211c9 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+:root[data-theme="ichika"] .game canvas { position: relative; z-index: 0; }
+:root[data-theme="ichika"] .game-top,
+:root[data-theme="ichika"] .game-song,
+:root[data-theme="ichika"] .game-bottom,
+:root[data-theme="ichika"] .combo-display,
+:root[data-theme="ichika"] .judgment { z-index: 1; }
+:root[data-theme="ichika"] .game-top { color: #f8fbff; }
+:root[data-theme="ichika"] .glass-button { background: #1d2d35a6; border-color: #e2f0ff3b; color: #f4f8fa; backdrop-filter: blur(8px); }
+:root[data-theme="ichika"] .game-song strong { text-shadow: 0 2px 12px #0b1622; }
+:root[data-theme="ichika"] .game-song span,
+:root[data-theme="ichika"] .score-block small,
+:root[data-theme="ichika"] .life-block,
+:root[data-theme="ichika"] .game-bottom { color: #cdd8e0; }
+:root[data-theme="ichika"] .combo-display { color: #bbeeff; }
+:root[data-theme="ichika"] .combo-display strong { text-shadow: 0 2px 20px #4a9fd844; }
+:root[data-theme="ichika"] .game-overlay { background: #13192ad9; z-index: 3; }
+:root[data-theme="ichika"] .result-score { color: #d2e8ff; }
+:root[data-theme="ichika"] #gameProgress { background: #4a9fd8; z-index: 2; }
+
+@media (min-width: 1450px) {
+  :root[data-theme="ichika"] .emu-hero { height: 210px; }
+}
+@media (max-width: 1100px) {
+  :root[data-theme="ichika"] .local-status { display: none; }
+}
+@media (max-width: 760px) {
+  :root[data-theme="ichika"] .topbar { height: 68px; padding: 0 16px; }
+  :root[data-theme="ichika"] .brand { font-size: 17px; gap: 7px; }
+  :root[data-theme="ichika"] .top-actions { gap: 8px; }
+  :root[data-theme="ichika"] .theme-chip { padding: 3px; min-height: 36px; width: 36px; justify-content: center; }
+  :root[data-theme="ichika"] .collection { padding: 18px 16px 24px; }
+  :root[data-theme="ichika"] .emu-hero { height: 181px; margin-bottom: 26px; border-radius: 13px; }
+  :root[data-theme="ichika"] .section-heading { margin-bottom: 20px; }
+  :root[data-theme="ichika"] .section-heading h1 { font-size: 26px; }
+  :root[data-theme="ichika"] .section-heading .muted { line-height: 1.5; }
+  :root[data-theme="ichika"] .song-grid { gap: 19px 10px; }
+  :root[data-theme="ichika"] .song-card .card-title { font-size: 11px; }
+  :root[data-theme="ichika"] .song-detail { min-height: 0; padding: 24px 20px; }
+  :root[data-theme="ichika"] .library { min-height: calc(100vh - 68px); }
+  :root[data-theme="ichika"] .game { height: calc(100dvh - 68px); }
+  :root[data-theme="ichika"] .game-character { object-position: 59% center; opacity: .18; }
+}
+@media (max-width: 370px) {
+  :root[data-theme="ichika"] .section-heading h1 { font-size: 24px; }
+  :root[data-theme="ichika"] .filter { font-size: 11px; padding-left: 10px; padding-right: 10px; }
+}
+
+/* ============================================
+   SAKI TENMA - Leo/need - Yellow
+   ============================================ */
+:root[data-theme="saki"] {
+  --bg: #fffef8;
+  --surface: #ffffff;
+  --text: #3d3b2d;
+  --muted: #7a7668;
+  --line: #f0eddf;
+  --accent: #f5c542;
+  --accent-dark: #d4a521;
+  --pink: #f5c542;
+  --purple: #e8ba5f;
+  --theme-soft: #fffdf0;
+  --theme-cream: #fffbdf;
+  --theme-shadow: 0 8px 28px #8a750709;
+}
+
+:root[data-theme="saki"] body { background: var(--bg); }
+:root[data-theme="saki"] button:focus-visible,
+:root[data-theme="saki"] a:focus-visible,
+:root[data-theme="saki"] input:focus-visible,
+:root[data-theme="saki"] select:focus-visible { outline-color: #d4a521; }
+:root[data-theme="saki"] .topbar {
+  height: 76px;
+  background: #fffefd;
+  border-bottom-color: #f2ede0;
+}
+:root[data-theme="saki"] .brand { letter-spacing: 1px; font-size: 21px; }
+:root[data-theme="saki"] .brand-icon { color: #f5c542; }
+:root[data-theme="saki"] .slash { color: #e8d88b; }
+:root[data-theme="saki"] .demo-tag { color: #806d57; background: #fffcee; border-color: #ede9d8; }
+:root[data-theme="saki"] .top-actions { gap: 17px; }
+:root[data-theme="saki"] .theme-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 13px 5px 5px;
+  min-height: 40px;
+  border: 1px solid #f0ddca;
+  background: #fffdf5;
+  border-radius: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #b08a2c;
+}
+:root[data-theme="saki"] .library { min-height: calc(100vh - 76px); }
+:root[data-theme="saki"] .collection { padding-top: 26px; }
+:root[data-theme="saki"] .emu-hero {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: 196px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  background: linear-gradient(110deg, #fffdf0 0%, #fffef3 60%, #ffffd5 100%);
+  overflow: hidden;
+  border: 1px solid #f2e9d9;
+}
+:root[data-theme="saki"] .section-heading { margin-bottom: 24px; }
+:root[data-theme="saki"] h1 { font-size: 30px; letter-spacing: -1px; }
+:root[data-theme="saki"] .tiny-star { color: #d5b080; }
+:root[data-theme="saki"] .primary { background: #f5c542; color: #3d3b2d; box-shadow: 0 3px 9px #f5c5421c; }
+:root[data-theme="saki"] .primary:hover { background: #e0b02f; }
+:root[data-theme="saki"] .secondary { background: #fffdfd; }
+:root[data-theme="saki"] .secondary:hover { background: #fffef7; border-color: #dbb885; }
+:root[data-theme="saki"] .search { box-shadow: var(--theme-shadow); }
+:root[data-theme="saki"] .search input { color: #3d3b2d; }
+:root[data-theme="saki"] .search input::placeholder { color: #857d73; opacity: 1; }
+:root[data-theme="saki"] .filter-row { margin-bottom: 23px; gap: 7px; }
+:root[data-theme="saki"] .filter { min-height: 35px; }
+:root[data-theme="saki"] .filter.active { background: #faefd3; border-color: #f1ddc6; color: #a1862d; }
+:root[data-theme="saki"] .song-grid { gap: 22px 16px; }
+:root[data-theme="saki"] .cover-wrap { border-radius: 10px; box-shadow: 0 4px 14px #8a750712; }
+:root[data-theme="saki"] .song-card.selected .cover-wrap { border-color: #f5c542; box-shadow: 0 0 0 3px #f5c54218; }
+:root[data-theme="saki"] .card-title { font-size: 12px; margin-top: 10px; }
+:root[data-theme="saki"] .card-badge { background: #fffdf0f5; color: #73613a; }
+:root[data-theme="saki"] .selected-check { background: #f5c542; }
+:root[data-theme="saki"] .song-detail {
+  background: linear-gradient(160deg, #fffef6, #fffefd 56%, #fffef8);
+  border-left-color: #ede8da;
+  min-height: calc(100vh - 76px);
+}
+:root[data-theme="saki"] .detail-cover { transform: rotate(-2deg); box-shadow: 0 12px 28px #8a750720; }
+:root[data-theme="saki"] .unit-tag { background: #faeede; color: #9a7f3f; }
+:root[data-theme="saki"] .difficulty.active { background: #fffef0; border-color: #f5c542; color: #aa8b2b; }
+:root[data-theme="saki"] .key-guide kbd { border-color: #e4dacd; color: #796754; }
+:root[data-theme="saki"] .audio-note { color: #7a7668; }
+:root[data-theme="saki"] .library-foot { color: #847d70; }
+:root[data-theme="saki"] .editor-tools,
+:root[data-theme="saki"] .timeline { box-shadow: var(--theme-shadow); }
+:root[data-theme="saki"] .note-tools .active { background: #ffeed0; color: #a1862d; }
+:root[data-theme="saki"] .note-cell:hover { background: #fffef6; }
+:root[data-theme="saki"] .lane-labels { background: #fffdf4; }
+:root[data-theme="saki"] .beat-label { background: #fffefd; }
+:root[data-theme="saki"] #waveform { background: #fffdf7; }
+:root[data-theme="saki"] dialog { background: #fffefd; border-color: #eaded0; box-shadow: 0 30px 90px #6a573c30; }
+:root[data-theme="saki"] dialog::backdrop { background: #3b2d2070; }
+:root[data-theme="saki"] label { color: #706654; }
+:root[data-theme="saki"] .game {
+  height: calc(100dvh - 76px);
+  background: #2b2419;
+  isolation: isolate;
+}
+:root[data-theme="saki"] .game-character {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: .23;
+  filter: saturate(.65);
+  pointer-events: none;
+  z-index: -2;
+}
+:root[data-theme="saki"] .game::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #19130a7a 0%, #2a1f1230 35%, #21170fc9 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+:root[data-theme="saki"] .game canvas { position: relative; z-index: 0; }
+:root[data-theme="saki"] .game-top,
+:root[data-theme="saki"] .game-song,
+:root[data-theme="saki"] .game-bottom,
+:root[data-theme="saki"] .combo-display,
+:root[data-theme="saki"] .judgment { z-index: 1; }
+:root[data-theme="saki"] .game-top { color: #fffef8; }
+:root[data-theme="saki"] .glass-button { background: #352d1da6; border-color: #ffeed23b; color: #fff8f4; backdrop-filter: blur(8px); }
+:root[data-theme="saki"] .game-song strong { text-shadow: 0 2px 12px #160b22; }
+:root[data-theme="saki"] .game-song span,
+:root[data-theme="saki"] .score-block small,
+:root[data-theme="saki"] .life-block,
+:root[data-theme="saki"] .game-bottom { color: #e0d8cd; }
+:root[data-theme="saki"] .combo-display { color: #fff8bb; }
+:root[data-theme="saki"] .combo-display strong { text-shadow: 0 2px 20px #f5c54244; }
+:root[data-theme="saki"] .game-overlay { background: #291f13d9; z-index: 3; }
+:root[data-theme="saki"] .result-score { color: #ffe8d2; }
+:root[data-theme="saki"] #gameProgress { background: #f5c542; z-index: 2; }
+
+@media (min-width: 1450px) {
+  :root[data-theme="saki"] .emu-hero { height: 210px; }
+}
+@media (max-width: 1100px) {
+  :root[data-theme="saki"] .local-status { display: none; }
+}
+@media (max-width: 760px) {
+  :root[data-theme="saki"] .topbar { height: 68px; padding: 0 16px; }
+  :root[data-theme="saki"] .brand { font-size: 17px; gap: 7px; }
+  :root[data-theme="saki"] .top-actions { gap: 8px; }
+  :root[data-theme="saki"] .theme-chip { padding: 3px; min-height: 36px; width: 36px; justify-content: center; }
+  :root[data-theme="saki"] .collection { padding: 18px 16px 24px; }
+  :root[data-theme="saki"] .emu-hero { height: 181px; margin-bottom: 26px; border-radius: 13px; }
+  :root[data-theme="saki"] .section-heading { margin-bottom: 20px; }
+  :root[data-theme="saki"] .section-heading h1 { font-size: 26px; }
+  :root[data-theme="saki"] .section-heading .muted { line-height: 1.5; }
+  :root[data-theme="saki"] .song-grid { gap: 19px 10px; }
+  :root[data-theme="saki"] .song-card .card-title { font-size: 11px; }
+  :root[data-theme="saki"] .song-detail { min-height: 0; padding: 24px 20px; }
+  :root[data-theme="saki"] .library { min-height: calc(100vh - 68px); }
+  :root[data-theme="saki"] .game { height: calc(100dvh - 68px); }
+  :root[data-theme="saki"] .game-character { object-position: 59% center; opacity: .18; }
+}
+@media (max-width: 370px) {
+  :root[data-theme="saki"] .section-heading h1 { font-size: 24px; }
+  :root[data-theme="saki"] .filter { font-size: 11px; padding-left: 10px; padding-right: 10px; }
+}
+
+/* ============================================
+   MINORI HANASATO - MORE MORE JUMP! - Red/Pink
+   ============================================ */
+:root[data-theme="minori"] {
+  --bg: #fff8fa;
+  --surface: #ffffff;
+  --text: #3d2d32;
+  --muted: #7a6872;
+  --line: #f0dfe5;
+  --accent: #ff6b9d;
+  --accent-dark: #d84578;
+  --pink: #ff6b9d;
+  --purple: #e88aae;
+  --theme-soft: #fff0f5;
+  --theme-cream: #fff7ea;
+  --theme-shadow: 0 8px 28px #8a424509;
+}
+
+:root[data-theme="minori"] body { background: var(--bg); }
+:root[data-theme="minori"] button:focus-visible,
+:root[data-theme="minori"] a:focus-visible,
+:root[data-theme="minori"] input:focus-visible,
+:root[data-theme="minori"] select:focus-visible { outline-color: #d84578; }
+:root[data-theme="minori"] .topbar {
+  height: 76px;
+  background: #fffdfe;
+  border-bottom-color: #f2e0e7;
+}
+:root[data-theme="minori"] .brand { letter-spacing: 1px; font-size: 21px; }
+:root[data-theme="minori"] .brand-icon { color: #ff6b9d; }
+:root[data-theme="minori"] .slash { color: #e8a0b9; }
+:root[data-theme="minori"] .demo-tag { color: #806573; background: #fff8ee; border-color: #eddfd8; }
+:root[data-theme="minori"] .top-actions { gap: 17px; }
+:root[data-theme="minori"] .theme-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 13px 5px 5px;
+  min-height: 40px;
+  border: 1px solid #f0cadb;
+  background: #fff5f8;
+  border-radius: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #b03563;
+}
+:root[data-theme="minori"] .library { min-height: calc(100vh - 76px); }
+:root[data-theme="minori"] .collection { padding-top: 26px; }
+:root[data-theme="minori"] .emu-hero {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: 196px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  background: linear-gradient(110deg, #fff0f5 0%, #fff1f3 60%, #ffe8ef 100%);
+  overflow: hidden;
+  border: 1px solid #f2d9e1;
+}
+:root[data-theme="minori"] .section-heading { margin-bottom: 24px; }
+:root[data-theme="minori"] h1 { font-size: 30px; letter-spacing: -1px; }
+:root[data-theme="minori"] .tiny-star { color: #d580a5; }
+:root[data-theme="minori"] .primary { background: #ff6b9d; color: white; box-shadow: 0 3px 9px #ff6b9d1c; }
+:root[data-theme="minori"] .primary:hover { background: #e85589; }
+:root[data-theme="minori"] .secondary { background: #fffdfd; }
+:root[data-theme="minori"] .secondary:hover { background: #fff2f7; border-color: #db85aa; }
+:root[data-theme="minori"] .search { box-shadow: var(--theme-shadow); }
+:root[data-theme="minori"] .search input { color: #3d2d32; }
+:root[data-theme="minori"] .search input::placeholder { color: #85737d; opacity: 1; }
+:root[data-theme="minori"] .filter-row { margin-bottom: 23px; gap: 7px; }
+:root[data-theme="minori"] .filter { min-height: 35px; }
+:root[data-theme="minori"] .filter.active { background: #fae3ed; border-color: #f1c6d7; color: #a12d63; }
+:root[data-theme="minori"] .song-grid { gap: 22px 16px; }
+:root[data-theme="minori"] .cover-wrap { border-radius: 10px; box-shadow: 0 4px 14px #8a516212; }
+:root[data-theme="minori"] .song-card.selected .cover-wrap { border-color: #ff6b9d; box-shadow: 0 0 0 3px #ff6b9d18; }
+:root[data-theme="minori"] .card-title { font-size: 12px; margin-top: 10px; }
+:root[data-theme="minori"] .card-badge { background: #fff0f5f5; color: #73513a; }
+:root[data-theme="minori"] .selected-check { background: #ff6b9d; }
+:root[data-theme="minori"] .song-detail {
+  background: linear-gradient(160deg, #fff1f6, #fffdfe 56%, #fff8fa);
+  border-left-color: #eddae3;
+  min-height: calc(100vh - 76px);
+}
+:root[data-theme="minori"] .detail-cover { transform: rotate(-2deg); box-shadow: 0 12px 28px #8a527520; }
+:root[data-theme="minori"] .unit-tag { background: #fae4ee; color: #9a3f69; }
+:root[data-theme="minori"] .difficulty.active { background: #fff0f6; border-color: #ff6b9d; color: #aa2b66; }
+:root[data-theme="minori"] .key-guide kbd { border-color: #e4cdd7; color: #795467; }
+:root[data-theme="minori"] .audio-note { color: #7a6872; }
+:root[data-theme="minori"] .library-foot { color: #847078; }
+:root[data-theme="minori"] .editor-tools,
+:root[data-theme="minori"] .timeline { box-shadow: var(--theme-shadow); }
+:root[data-theme="minori"] .note-tools .active { background: #ffe6f0; color: #a12d63; }
+:root[data-theme="minori"] .note-cell:hover { background: #fff0f6; }
+:root[data-theme="minori"] .lane-labels { background: #fff4f8; }
+:root[data-theme="minori"] .beat-label { background: #fffbfd; }
+:root[data-theme="minori"] #waveform { background: #fff7f9; }
+:root[data-theme="minori"] dialog { background: #fffdfe; border-color: #ead0dd; box-shadow: 0 30px 90px #6a374c30; }
+:root[data-theme="minori"] dialog::backdrop { background: #3b203d70; }
+:root[data-theme="minori"] label { color: #705466; }
+:root[data-theme="minori"] .game {
+  height: calc(100dvh - 76px);
+  background: #2b1924;
+  isolation: isolate;
+}
+:root[data-theme="minori"] .game-character {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: .23;
+  filter: saturate(.65);
+  pointer-events: none;
+  z-index: -2;
+}
+:root[data-theme="minori"] .game::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #19130a7a 0%, #241530 35%, #170f21c9 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+:root[data-theme="minori"] .game canvas { position: relative; z-index: 0; }
+:root[data-theme="minori"] .game-top,
+:root[data-theme="minori"] .game-song,
+:root[data-theme="minori"] .game-bottom,
+:root[data-theme="minori"] .combo-display,
+:root[data-theme="minori"] .judgment { z-index: 1; }
+:root[data-theme="minori"] .game-top { color: #fff8fc; }
+:root[data-theme="minori"] .glass-button { background: #351d2da6; border-color: #ffe2ef3b; color: #fff4fa; backdrop-filter: blur(8px); }
+:root[data-theme="minori"] .game-song strong { text-shadow: 0 2px 12px #160b22; }
+:root[data-theme="minori"] .game-song span,
+:root[data-theme="minori"] .score-block small,
+:root[data-theme="minori"] .life-block,
+:root[data-theme="minori"] .game-bottom { color: #e0cddd; }
+:root[data-theme="minori"] .combo-display { color: #ffcce0; }
+:root[data-theme="minori"] .combo-display strong { text-shadow: 0 2px 20px #ff6b9d44; }
+:root[data-theme="minori"] .game-overlay { background: #291324d9; z-index: 3; }
+:root[data-theme="minori"] .result-score { color: #ffd2e7; }
+:root[data-theme="minori"] #gameProgress { background: #ff6b9d; z-index: 2; }
+
+@media (min-width: 1450px) {
+  :root[data-theme="minori"] .emu-hero { height: 210px; }
+}
+@media (max-width: 1100px) {
+  :root[data-theme="minori"] .local-status { display: none; }
+}
+@media (max-width: 760px) {
+  :root[data-theme="minori"] .topbar { height: 68px; padding: 0 16px; }
+  :root[data-theme="minori"] .brand { font-size: 17px; gap: 7px; }
+  :root[data-theme="minori"] .top-actions { gap: 8px; }
+  :root[data-theme="minori"] .theme-chip { padding: 3px; min-height: 36px; width: 36px; justify-content: center; }
+  :root[data-theme="minori"] .collection { padding: 18px 16px 24px; }
+  :root[data-theme="minori"] .emu-hero { height: 181px; margin-bottom: 26px; border-radius: 13px; }
+  :root[data-theme="minori"] .section-heading { margin-bottom: 20px; }
+  :root[data-theme="minori"] .section-heading h1 { font-size: 26px; }
+  :root[data-theme="minori"] .section-heading .muted { line-height: 1.5; }
+  :root[data-theme="minori"] .song-grid { gap: 19px 10px; }
+  :root[data-theme="minori"] .song-card .card-title { font-size: 11px; }
+  :root[data-theme="minori"] .song-detail { min-height: 0; padding: 24px 20px; }
+  :root[data-theme="minori"] .library { min-height: calc(100vh - 68px); }
+  :root[data-theme="minori"] .game { height: calc(100dvh - 68px); }
+  :root[data-theme="minori"] .game-character { object-position: 59% center; opacity: .18; }
+}
+@media (max-width: 370px) {
+  :root[data-theme="minori"] .section-heading h1 { font-size: 24px; }
+  :root[data-theme="minori"] .filter { font-size: 11px; padding-left: 10px; padding-right: 10px; }
+}
+
+/* ============================================
+   KOHANE AZUSAWA - Vivid BAD SQUAD - Orange
+   ============================================ */
+:root[data-theme="kohane"] {
+  --bg: #fffaf6;
+  --surface: #ffffff;
+  --text: #3d302d;
+  --muted: #7a6d68;
+  --line: #f0e5df;
+  --accent: #ff8c42;
+  --accent-dark: #d86821;
+  --pink: #ff8c42;
+  --purple: #e89f5f;
+  --theme-soft: #fff5ed;
+  --theme-cream: #fff8df;
+  --theme-shadow: 0 8px 28px #8a5d4209;
+}
+
+:root[data-theme="kohane"] body { background: var(--bg); }
+:root[data-theme="kohane"] button:focus-visible,
+:root[data-theme="kohane"] a:focus-visible,
+:root[data-theme="kohane"] input:focus-visible,
+:root[data-theme="kohane"] select:focus-visible { outline-color: #d86821; }
+:root[data-theme="kohane"] .topbar {
+  height: 76px;
+  background: #fffefd;
+  border-bottom-color: #f2e7e0;
+}
+:root[data-theme="kohane"] .brand { letter-spacing: 1px; font-size: 21px; }
+:root[data-theme="kohane"] .brand-icon { color: #ff8c42; }
+:root[data-theme="kohane"] .slash { color: #e8ad8b; }
+:root[data-theme="kohane"] .demo-tag { color: #806957; background: #fff8ee; border-color: #ede3d8; }
+:root[data-theme="kohane"] .top-actions { gap: 17px; }
+:root[data-theme="kohane"] .theme-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 13px 5px 5px;
+  min-height: 40px;
+  border: 1px solid #f0d5ca;
+  background: #fff8f5;
+  border-radius: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #b0602c;
+}
+:root[data-theme="kohane"] .library { min-height: calc(100vh - 76px); }
+:root[data-theme="kohane"] .collection { padding-top: 26px; }
+:root[data-theme="kohane"] .emu-hero {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: 196px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  background: linear-gradient(110deg, #fff5ed 0%, #fff6f0 60%, #ffedd5 100%);
+  overflow: hidden;
+  border: 1px solid #f2ded9;
+}
+:root[data-theme="kohane"] .section-heading { margin-bottom: 24px; }
+:root[data-theme="kohane"] h1 { font-size: 30px; letter-spacing: -1px; }
+:root[data-theme="kohane"] .tiny-star { color: #d59a80; }
+:root[data-theme="kohane"] .primary { background: #ff8c42; color: white; box-shadow: 0 3px 9px #ff8c421c; }
+:root[data-theme="kohane"] .primary:hover { background: #e07529; }
+:root[data-theme="kohane"] .secondary { background: #fffdfd; }
+:root[data-theme="kohane"] .secondary:hover { background: #fff8f7; border-color: #db9a85; }
+:root[data-theme="kohane"] .search { box-shadow: var(--theme-shadow); }
+:root[data-theme="kohane"] .search input { color: #3d302d; }
+:root[data-theme="kohane"] .search input::placeholder { color: #857973; opacity: 1; }
+:root[data-theme="kohane"] .filter-row { margin-bottom: 23px; gap: 7px; }
+:root[data-theme="kohane"] .filter { min-height: 35px; }
+:root[data-theme="kohane"] .filter.active { background: #fae9d3; border-color: #f1d2c6; color: #a1582d; }
+:root[data-theme="kohane"] .song-grid { gap: 22px 16px; }
+:root[data-theme="kohane"] .cover-wrap { border-radius: 10px; box-shadow: 0 4px 14px #8a5d4212; }
+:root[data-theme="kohane"] .song-card.selected .cover-wrap { border-color: #ff8c42; box-shadow: 0 0 0 3px #ff8c4218; }
+:root[data-theme="kohane"] .card-title { font-size: 12px; margin-top: 10px; }
+:root[data-theme="kohane"] .card-badge { background: #fff5edf5; color: #73513a; }
+:root[data-theme="kohane"] .selected-check { background: #ff8c42; }
+:root[data-theme="kohane"] .song-detail {
+  background: linear-gradient(160deg, #fff6f0, #fffefd 56%, #fffaf6);
+  border-left-color: #ede3da;
+  min-height: calc(100vh - 76px);
+}
+:root[data-theme="kohane"] .detail-cover { transform: rotate(-2deg); box-shadow: 0 12px 28px #8a5d4220; }
+:root[data-theme="kohane"] .unit-tag { background: #fae7de; color: #9a5d3f; }
+:root[data-theme="kohane"] .difficulty.active { background: #fff5ed; border-color: #ff8c42; color: #aa5a2b; }
+:root[data-theme="kohane"] .key-guide kbd { border-color: #e4d3cd; color: #796054; }
+:root[data-theme="kohane"] .audio-note { color: #7a6d68; }
+:root[data-theme="kohane"] .library-foot { color: #847570; }
+:root[data-theme="kohane"] .editor-tools,
+:root[data-theme="kohane"] .timeline { box-shadow: var(--theme-shadow); }
+:root[data-theme="kohane"] .note-tools .active { background: #ffebd0; color: #a1582d; }
+:root[data-theme="kohane"] .note-cell:hover { background: #fff5ed; }
+:root[data-theme="kohane"] .lane-labels { background: #fff7f4; }
+:root[data-theme="kohane"] .beat-label { background: #fffdfd; }
+:root[data-theme="kohane"] #waveform { background: #fff9f7; }
+:root[data-theme="kohane"] dialog { background: #fffefd; border-color: #ead6d0; box-shadow: 0 30px 90px #6a473c30; }
+:root[data-theme="kohane"] dialog::backdrop { background: #3b2d2070; }
+:root[data-theme="kohane"] label { color: #705d54; }
+:root[data-theme="kohane"] .game {
+  height: calc(100dvh - 76px);
+  background: #2b1f19;
+  isolation: isolate;
+}
+:root[data-theme="kohane"] .game-character {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: .23;
+  filter: saturate(.65);
+  pointer-events: none;
+  z-index: -2;
+}
+:root[data-theme="kohane"] .game::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #19130a7a 0%, #241e1530 35%, #17110fc9 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+:root[data-theme="kohane"] .game canvas { position: relative; z-index: 0; }
+:root[data-theme="kohane"] .game-top,
+:root[data-theme="kohane"] .game-song,
+:root[data-theme="kohane"] .game-bottom,
+:root[data-theme="kohane"] .combo-display,
+:root[data-theme="kohane"] .judgment { z-index: 1; }
+:root[data-theme="kohane"] .game-top { color: #fffaf6; }
+:root[data-theme="kohane"] .glass-button { background: #352a1da6; border-color: #ffead23b; color: #fff8f4; backdrop-filter: blur(8px); }
+:root[data-theme="kohane"] .game-song strong { text-shadow: 0 2px 12px #160b22; }
+:root[data-theme="kohane"] .game-song span,
+:root[data-theme="kohane"] .score-block small,
+:root[data-theme="kohane"] .life-block,
+:root[data-theme="kohane"] .game-bottom { color: #e0d3cd; }
+:root[data-theme="kohane"] .combo-display { color: #ffd5bb; }
+:root[data-theme="kohane"] .combo-display strong { text-shadow: 0 2px 20px #ff8c4244; }
+:root[data-theme="kohane"] .game-overlay { background: #291a13d9; z-index: 3; }
+:root[data-theme="kohane"] .result-score { color: #ffe0d2; }
+:root[data-theme="kohane"] #gameProgress { background: #ff8c42; z-index: 2; }
+
+@media (min-width: 1450px) {
+  :root[data-theme="kohane"] .emu-hero { height: 210px; }
+}
+@media (max-width: 1100px) {
+  :root[data-theme="kohane"] .local-status { display: none; }
+}
+@media (max-width: 760px) {
+  :root[data-theme="kohane"] .topbar { height: 68px; padding: 0 16px; }
+  :root[data-theme="kohane"] .brand { font-size: 17px; gap: 7px; }
+  :root[data-theme="kohane"] .top-actions { gap: 8px; }
+  :root[data-theme="kohane"] .theme-chip { padding: 3px; min-height: 36px; width: 36px; justify-content: center; }
+  :root[data-theme="kohane"] .collection { padding: 18px 16px 24px; }
+  :root[data-theme="kohane"] .emu-hero { height: 181px; margin-bottom: 26px; border-radius: 13px; }
+  :root[data-theme="kohane"] .section-heading { margin-bottom: 20px; }
+  :root[data-theme="kohane"] .section-heading h1 { font-size: 26px; }
+  :root[data-theme="kohane"] .section-heading .muted { line-height: 1.5; }
+  :root[data-theme="kohane"] .song-grid { gap: 19px 10px; }
+  :root[data-theme="kohane"] .song-card .card-title { font-size: 11px; }
+  :root[data-theme="kohane"] .song-detail { min-height: 0; padding: 24px 20px; }
+  :root[data-theme="kohane"] .library { min-height: calc(100vh - 68px); }
+  :root[data-theme="kohane"] .game { height: calc(100dvh - 68px); }
+  :root[data-theme="kohane"] .game-character { object-position: 59% center; opacity: .18; }
+}
+@media (max-width: 370px) {
+  :root[data-theme="kohane"] .section-heading h1 { font-size: 24px; }
+  :root[data-theme="kohane"] .filter { font-size: 11px; padding-left: 10px; padding-right: 10px; }
+}
+
+/* ============================================
+   TSUKASA TENMA - Wonderlands x Showtime - Orange/Yellow
+   ============================================ */
+:root[data-theme="tsukasa"] {
+  --bg: #fffdf6;
+  --surface: #ffffff;
+  --text: #3d372d;
+  --muted: #7a7368;
+  --line: #f0eadf;
+  --accent: #ffaa33;
+  --accent-dark: #d88521;
+  --pink: #ffaa33;
+  --purple: #e8b55f;
+  --theme-soft: #fffaed;
+  --theme-cream: #fffbdf;
+  --theme-shadow: 0 8px 28px #8a6e0709;
+}
+
+:root[data-theme="tsukasa"] body { background: var(--bg); }
+:root[data-theme="tsukasa"] button:focus-visible,
+:root[data-theme="tsukasa"] a:focus-visible,
+:root[data-theme="tsukasa"] input:focus-visible,
+:root[data-theme="tsukasa"] select:focus-visible { outline-color: #d88521; }
+:root[data-theme="tsukasa"] .topbar {
+  height: 76px;
+  background: #fffefd;
+  border-bottom-color: #f2ebe0;
+}
+:root[data-theme="tsukasa"] .brand { letter-spacing: 1px; font-size: 21px; }
+:root[data-theme="tsukasa"] .brand-icon { color: #ffaa33; }
+:root[data-theme="tsukasa"] .slash { color: #e8c38b; }
+:root[data-theme="tsukasa"] .demo-tag { color: #806d57; background: #fffcee; border-color: #ede7d8; }
+:root[data-theme="tsukasa"] .top-actions { gap: 17px; }
+:root[data-theme="tsukasa"] .theme-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 13px 5px 5px;
+  min-height: 40px;
+  border: 1px solid #f0deca;
+  background: #fffcf5;
+  border-radius: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #b0772c;
+}
+:root[data-theme="tsukasa"] .library { min-height: calc(100vh - 76px); }
+:root[data-theme="tsukasa"] .collection { padding-top: 26px; }
+:root[data-theme="tsukasa"] .emu-hero {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: 196px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  background: linear-gradient(110deg, #fffaed 0%, #fffcf0 60%, #fff5d5 100%);
+  overflow: hidden;
+  border: 1px solid #f2e6d9;
+}
+:root[data-theme="tsukasa"] .section-heading { margin-bottom: 24px; }
+:root[data-theme="tsukasa"] h1 { font-size: 30px; letter-spacing: -1px; }
+:root[data-theme="tsukasa"] .tiny-star { color: #d5aa80; }
+:root[data-theme="tsukasa"] .primary { background: #ffaa33; color: white; box-shadow: 0 3px 9px #ffaa331c; }
+:root[data-theme="tsukasa"] .primary:hover { background: #e09329; }
+:root[data-theme="tsukasa"] .secondary { background: #fffdfd; }
+:root[data-theme="tsukasa"] .secondary:hover { background: #fffcf7; border-color: #dbb085; }
+:root[data-theme="tsukasa"] .search { box-shadow: var(--theme-shadow); }
+:root[data-theme="tsukasa"] .search input { color: #3d372d; }
+:root[data-theme="tsukasa"] .search input::placeholder { color: #857d73; opacity: 1; }
+:root[data-theme="tsukasa"] .filter-row { margin-bottom: 23px; gap: 7px; }
+:root[data-theme="tsukasa"] .filter { min-height: 35px; }
+:root[data-theme="tsukasa"] .filter.active { background: #faf0d3; border-color: #f1ddc6; color: #a1732d; }
+:root[data-theme="tsukasa"] .song-grid { gap: 22px 16px; }
+:root[data-theme="tsukasa"] .cover-wrap { border-radius: 10px; box-shadow: 0 4px 14px #8a6e4212; }
+:root[data-theme="tsukasa"] .song-card.selected .cover-wrap { border-color: #ffaa33; box-shadow: 0 0 0 3px #ffaa3318; }
+:root[data-theme="tsukasa"] .card-title { font-size: 12px; margin-top: 10px; }
+:root[data-theme="tsukasa"] .card-badge { background: #fffaedf5; color: #73613a; }
+:root[data-theme="tsukasa"] .selected-check { background: #ffaa33; }
+:root[data-theme="tsukasa"] .song-detail {
+  background: linear-gradient(160deg, #fffcf0, #fffefd 56%, #fffdf6);
+  border-left-color: #ede7da;
+  min-height: calc(100vh - 76px);
+}
+:root[data-theme="tsukasa"] .detail-cover { transform: rotate(-2deg); box-shadow: 0 12px 28px #8a6e4220; }
+:root[data-theme="tsukasa"] .unit-tag { background: #faeede; color: #9a703f; }
+:root[data-theme="tsukasa"] .difficulty.active { background: #fffaed; border-color: #ffaa33; color: #aa712b; }
+:root[data-theme="tsukasa"] .key-guide kbd { border-color: #e4dacd; color: #796754; }
+:root[data-theme="tsukasa"] .audio-note { color: #7a7368; }
+:root[data-theme="tsukasa"] .library-foot { color: #847b70; }
+:root[data-theme="tsukasa"] .editor-tools,
+:root[data-theme="tsukasa"] .timeline { box-shadow: var(--theme-shadow); }
+:root[data-theme="tsukasa"] .note-tools .active { background: #fff0d0; color: #a1732d; }
+:root[data-theme="tsukasa"] .note-cell:hover { background: #fffaed; }
+:root[data-theme="tsukasa"] .lane-labels { background: #fffcf4; }
+:root[data-theme="tsukasa"] .beat-label { background: #fffefd; }
+:root[data-theme="tsukasa"] #waveform { background: #fffdf7; }
+:root[data-theme="tsukasa"] dialog { background: #fffefd; border-color: #eaded0; box-shadow: 0 30px 90px #6a573c30; }
+:root[data-theme="tsukasa"] dialog::backdrop { background: #3b2d2070; }
+:root[data-theme="tsukasa"] label { color: #706654; }
+:root[data-theme="tsukasa"] .game {
+  height: calc(100dvh - 76px);
+  background: #2b2319;
+  isolation: isolate;
+}
+:root[data-theme="tsukasa"] .game-character {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: .23;
+  filter: saturate(.65);
+  pointer-events: none;
+  z-index: -2;
+}
+:root[data-theme="tsukasa"] .game::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #19130a7a 0%, #241e1530 35%, #17120fc9 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+:root[data-theme="tsukasa"] .game canvas { position: relative; z-index: 0; }
+:root[data-theme="tsukasa"] .game-top,
+:root[data-theme="tsukasa"] .game-song,
+:root[data-theme="tsukasa"] .game-bottom,
+:root[data-theme="tsukasa"] .combo-display,
+:root[data-theme="tsukasa"] .judgment { z-index: 1; }
+:root[data-theme="tsukasa"] .game-top { color: #fffdf6; }
+:root[data-theme="tsukasa"] .glass-button { background: #352b1da6; border-color: #ffeed23b; color: #fff8f4; backdrop-filter: blur(8px); }
+:root[data-theme="tsukasa"] .game-song strong { text-shadow: 0 2px 12px #160b22; }
+:root[data-theme="tsukasa"] .game-song span,
+:root[data-theme="tsukasa"] .score-block small,
+:root[data-theme="tsukasa"] .life-block,
+:root[data-theme="tsukasa"] .game-bottom { color: #e0d8cd; }
+:root[data-theme="tsukasa"] .combo-display { color: #ffeabb; }
+:root[data-theme="tsukasa"] .combo-display strong { text-shadow: 0 2px 20px #ffaa3344; }
+:root[data-theme="tsukasa"] .game-overlay { background: #291d13d9; z-index: 3; }
+:root[data-theme="tsukasa"] .result-score { color: #ffe8d2; }
+:root[data-theme="tsukasa"] #gameProgress { background: #ffaa33; z-index: 2; }
+
+@media (min-width: 1450px) {
+  :root[data-theme="tsukasa"] .emu-hero { height: 210px; }
+}
+@media (max-width: 1100px) {
+  :root[data-theme="tsukasa"] .local-status { display: none; }
+}
+@media (max-width: 760px) {
+  :root[data-theme="tsukasa"] .topbar { height: 68px; padding: 0 16px; }
+  :root[data-theme="tsukasa"] .brand { font-size: 17px; gap: 7px; }
+  :root[data-theme="tsukasa"] .top-actions { gap: 8px; }
+  :root[data-theme="tsukasa"] .theme-chip { padding: 3px; min-height: 36px; width: 36px; justify-content: center; }
+  :root[data-theme="tsukasa"] .collection { padding: 18px 16px 24px; }
+  :root[data-theme="tsukasa"] .emu-hero { height: 181px; margin-bottom: 26px; border-radius: 13px; }
+  :root[data-theme="tsukasa"] .section-heading { margin-bottom: 20px; }
+  :root[data-theme="tsukasa"] .section-heading h1 { font-size: 26px; }
+  :root[data-theme="tsukasa"] .section-heading .muted { line-height: 1.5; }
+  :root[data-theme="tsukasa"] .song-grid { gap: 19px 10px; }
+  :root[data-theme="tsukasa"] .song-card .card-title { font-size: 11px; }
+  :root[data-theme="tsukasa"] .song-detail { min-height: 0; padding: 24px 20px; }
+  :root[data-theme="tsukasa"] .library { min-height: calc(100vh - 68px); }
+  :root[data-theme="tsukasa"] .game { height: calc(100dvh - 68px); }
+  :root[data-theme="tsukasa"] .game-character { object-position: 59% center; opacity: .18; }
+}
+@media (max-width: 370px) {
+  :root[data-theme="tsukasa"] .section-heading h1 { font-size: 24px; }
+  :root[data-theme="tsukasa"] .filter { font-size: 11px; padding-left: 10px; padding-right: 10px; }
+}
+
+/* ============================================
+   KANADE YOISAKI - Nightcord at 25:00 - Purple
+   ============================================ */
+:root[data-theme="kanade"] {
+  --bg: #faf8ff;
+  --surface: #ffffff;
+  --text: #342d3d;
+  --muted: #75687a;
+  --line: #ebe0f0;
+  --accent: #8866bb;
+  --accent-dark: #6842a1;
+  --pink: #8866bb;
+  --purple: #9f7ac8;
+  --theme-soft: #f5f0ff;
+  --theme-cream: #f8f0ff;
+  --theme-shadow: 0 8px 28px #53427809;
+}
+
+:root[data-theme="kanade"] body { background: var(--bg); }
+:root[data-theme="kanade"] button:focus-visible,
+:root[data-theme="kanade"] a:focus-visible,
+:root[data-theme="kanade"] input:focus-visible,
+:root[data-theme="kanade"] select:focus-visible { outline-color: #6842a1; }
+:root[data-theme="kanade"] .topbar {
+  height: 76px;
+  background: #fdfbff;
+  border-bottom-color: #ebe0f2;
+}
+:root[data-theme="kanade"] .brand { letter-spacing: 1px; font-size: 21px; }
+:root[data-theme="kanade"] .brand-icon { color: #8866bb; }
+:root[data-theme="kanade"] .slash { color: #a88bdb; }
+:root[data-theme="kanade"] .demo-tag { color: #6a5780; background: #f8f0ff; border-color: #dfd8ed; }
+:root[data-theme="kanade"] .top-actions { gap: 17px; }
+:root[data-theme="kanade"] .theme-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 13px 5px 5px;
+  min-height: 40px;
+  border: 1px solid #d5c5f0;
+  background: #f8f5ff;
+  border-radius: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6842a1;
+}
+:root[data-theme="kanade"] .library { min-height: calc(100vh - 76px); }
+:root[data-theme="kanade"] .collection { padding-top: 26px; }
+:root[data-theme="kanade"] .emu-hero {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: 196px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  background: linear-gradient(110deg, #f5f0ff 0%, #f8f3ff 60%, #f0e8ff 100%);
+  overflow: hidden;
+  border: 1px solid #e0d9f2;
+}
+:root[data-theme="kanade"] .section-heading { margin-bottom: 24px; }
+:root[data-theme="kanade"] h1 { font-size: 30px; letter-spacing: -1px; }
+:root[data-theme="kanade"] .tiny-star { color: #a080d5; }
+:root[data-theme="kanade"] .primary { background: #8866bb; color: white; box-shadow: 0 3px 9px #8866bb1c; }
+:root[data-theme="kanade"] .primary:hover { background: #7052a0; }
+:root[data-theme="kanade"] .secondary { background: #fdfdff; }
+:root[data-theme="kanade"] .secondary:hover { background: #f8f5ff; border-color: #a385db; }
+:root[data-theme="kanade"] .search { box-shadow: var(--theme-shadow); }
+:root[data-theme="kanade"] .search input { color: #342d3d; }
+:root[data-theme="kanade"] .search input::placeholder { color: #7d7385; opacity: 1; }
+:root[data-theme="kanade"] .filter-row { margin-bottom: 23px; gap: 7px; }
+:root[data-theme="kanade"] .filter { min-height: 35px; }
+:root[data-theme="kanade"] .filter.active { background: #ece3fa; border-color: #d7c6f1; color: #5d2da1; }
+:root[data-theme="kanade"] .song-grid { gap: 22px 16px; }
+:root[data-theme="kanade"] .cover-wrap { border-radius: 10px; box-shadow: 0 4px 14px #53427812; }
+:root[data-theme="kanade"] .song-card.selected .cover-wrap { border-color: #8866bb; box-shadow: 0 0 0 3px #8866bb18; }
+:root[data-theme="kanade"] .card-title { font-size: 12px; margin-top: 10px; }
+:root[data-theme="kanade"] .card-badge { background: #f5f0fff5; color: #513a73; }
+:root[data-theme="kanade"] .selected-check { background: #8866bb; }
+:root[data-theme="kanade"] .song-detail {
+  background: linear-gradient(160deg, #f8f3ff, #fdfbff 56%, #faf8ff);
+  border-left-color: #e0d8ed;
+  min-height: calc(100vh - 76px);
+}
+:root[data-theme="kanade"] .detail-cover { transform: rotate(-2deg); box-shadow: 0 12px 28px #53427820; }
+:root[data-theme="kanade"] .unit-tag { background: #e9defa; color: #683f9a; }
+:root[data-theme="kanade"] .difficulty.active { background: #f5f0ff; border-color: #8866bb; color: #5d2da1; }
+:root[data-theme="kanade"] .key-guide kbd { border-color: #d7cde4; color: #5d4a79; }
+:root[data-theme="kanade"] .audio-note { color: #75687a; }
+:root[data-theme="kanade"] .library-foot { color: #7d7084; }
+:root[data-theme="kanade"] .editor-tools,
+:root[data-theme="kanade"] .timeline { box-shadow: var(--theme-shadow); }
+:root[data-theme="kanade"] .note-tools .active { background: #ede0ff; color: #5d2da1; }
+:root[data-theme="kanade"] .note-cell:hover { background: #f5f0ff; }
+:root[data-theme="kanade"] .lane-labels { background: #f8f4ff; }
+:root[data-theme="kanade"] .beat-label { background: #fdfbff; }
+:root[data-theme="kanade"] #waveform { background: #f9f7ff; }
+:root[data-theme="kanade"] dialog { background: #fdfbff; border-color: #d9ccea; box-shadow: 0 30px 90px #4c3c6a30; }
+:root[data-theme="kanade"] dialog::backdrop { background: #2d1d3b70; }
+:root[data-theme="kanade"] label { color: #5d5470; }
+:root[data-theme="kanade"] .game {
+  height: calc(100dvh - 76px);
+  background: #1f192b;
+  isolation: isolate;
+}
+:root[data-theme="kanade"] .game-character {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: .23;
+  filter: saturate(.65);
+  pointer-events: none;
+  z-index: -2;
+}
+:root[data-theme="kanade"] .game::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #130a197a 0%, #1e1530 35%, #110f21c9 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+:root[data-theme="kanade"] .game canvas { position: relative; z-index: 0; }
+:root[data-theme="kanade"] .game-top,
+:root[data-theme="kanade"] .game-song,
+:root[data-theme="kanade"] .game-bottom,
+:root[data-theme="kanade"] .combo-display,
+:root[data-theme="kanade"] .judgment { z-index: 1; }
+:root[data-theme="kanade"] .game-top { color: #faf8ff; }
+:root[data-theme="kanade"] .glass-button { background: #2a1d35a6; border-color: #e2d2ff3b; color: #f8f4fa; backdrop-filter: blur(8px); }
+:root[data-theme="kanade"] .game-song strong { text-shadow: 0 2px 12px #0b0622; }
+:root[data-theme="kanade"] .game-song span,
+:root[data-theme="kanade"] .score-block small,
+:root[data-theme="kanade"] .life-block,
+:root[data-theme="kanade"] .game-bottom { color: #d3cde0; }
+:root[data-theme="kanade"] .combo-display { color: #d0bbff; }
+:root[data-theme="kanade"] .combo-display strong { text-shadow: 0 2px 20px #8866bb44; }
+:root[data-theme="kanade"] .game-overlay { background: #19132ad9; z-index: 3; }
+:root[data-theme="kanade"] .result-score { color: #e2d2ff; }
+:root[data-theme="kanade"] #gameProgress { background: #8866bb; z-index: 2; }
+
+@media (min-width: 1450px) {
+  :root[data-theme="kanade"] .emu-hero { height: 210px; }
+}
+@media (max-width: 1100px) {
+  :root[data-theme="kanade"] .local-status { display: none; }
+}
+@media (max-width: 760px) {
+  :root[data-theme="kanade"] .topbar { height: 68px; padding: 0 16px; }
+  :root[data-theme="kanade"] .brand { font-size: 17px; gap: 7px; }
+  :root[data-theme="kanade"] .top-actions { gap: 8px; }
+  :root[data-theme="kanade"] .theme-chip { padding: 3px; min-height: 36px; width: 36px; justify-content: center; }
+  :root[data-theme="kanade"] .collection { padding: 18px 16px 24px; }
+  :root[data-theme="kanade"] .emu-hero { height: 181px; margin-bottom: 26px; border-radius: 13px; }
+  :root[data-theme="kanade"] .section-heading { margin-bottom: 20px; }
+  :root[data-theme="kanade"] .section-heading h1 { font-size: 26px; }
+  :root[data-theme="kanade"] .section-heading .muted { line-height: 1.5; }
+  :root[data-theme="kanade"] .song-grid { gap: 19px 10px; }
+  :root[data-theme="kanade"] .song-card .card-title { font-size: 11px; }
+  :root[data-theme="kanade"] .song-detail { min-height: 0; padding: 24px 20px; }
+  :root[data-theme="kanade"] .library { min-height: calc(100vh - 68px); }
+  :root[data-theme="kanade"] .game { height: calc(100dvh - 68px); }
+  :root[data-theme="kanade"] .game-character { object-position: 59% center; opacity: .18; }
+}
+@media (max-width: 370px) {
+  :root[data-theme="kanade"] .section-heading h1 { font-size: 24px; }
+  :root[data-theme="kanade"] .filter { font-size: 11px; padding-left: 10px; padding-right: 10px; }
+}
+
+/* ============================================
+   HATSUNE MIKU - Virtual Singer - Turquoise
+   ============================================ */
+:root[data-theme="miku"] {
+  --bg: #f6fcfd;
+  --surface: #ffffff;
+  --text: #2d3a3d;
+  --muted: #687a7d;
+  --line: #dfeef0;
+  --accent: #39c5bb;
+  --accent-dark: #21a198;
+  --pink: #39c5bb;
+  --purple: #5fc8c0;
+  --theme-soft: #edfbfa;
+  --theme-cream: #f0fbff;
+  --theme-shadow: 0 8px 28px #42787809;
+}
+
+:root[data-theme="miku"] body { background: var(--bg); }
+:root[data-theme="miku"] button:focus-visible,
+:root[data-theme="miku"] a:focus-visible,
+:root[data-theme="miku"] input:focus-visible,
+:root[data-theme="miku"] select:focus-visible { outline-color: #21a198; }
+:root[data-theme="miku"] .topbar {
+  height: 76px;
+  background: #fbfeff;
+  border-bottom-color: #e0edf2;
+}
+:root[data-theme="miku"] .brand { letter-spacing: 1px; font-size: 21px; }
+:root[data-theme="miku"] .brand-icon { color: #39c5bb; }
+:root[data-theme="miku"] .slash { color: #8bd8d0; }
+:root[data-theme="miku"] .demo-tag { color: #576d80; background: #f0f8ff; border-color: #d8e7ed; }
+:root[data-theme="miku"] .top-actions { gap: 17px; }
+:root[data-theme="miku"] .theme-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 13px 5px 5px;
+  min-height: 40px;
+  border: 1px solid #c5e8f0;
+  background: #f5fcfd;
+  border-radius: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #2c90b0;
+}
+:root[data-theme="miku"] .library { min-height: calc(100vh - 76px); }
+:root[data-theme="miku"] .collection { padding-top: 26px; }
+:root[data-theme="miku"] .emu-hero {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: 196px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  background: linear-gradient(110deg, #edfbfa 0%, #f0fcff 60%, #e8f8ff 100%);
+  overflow: hidden;
+  border: 1px solid #d9eef2;
+}
+:root[data-theme="miku"] .section-heading { margin-bottom: 24px; }
+:root[data-theme="miku"] h1 { font-size: 30px; letter-spacing: -1px; }
+:root[data-theme="miku"] .tiny-star { color: #80c8d5; }
+:root[data-theme="miku"] .primary { background: #39c5bb; color: white; box-shadow: 0 3px 9px #39c5bb1c; }
+:root[data-theme="miku"] .primary:hover { background: #29aea5; }
+:root[data-theme="miku"] .secondary { background: #fdfdff; }
+:root[data-theme="miku"] .secondary:hover { background: #f5fcff; border-color: #85c8db; }
+:root[data-theme="miku"] .search { box-shadow: var(--theme-shadow); }
+:root[data-theme="miku"] .search input { color: #2d3a3d; }
+:root[data-theme="miku"] .search input::placeholder { color: #737d85; opacity: 1; }
+:root[data-theme="miku"] .filter-row { margin-bottom: 23px; gap: 7px; }
+:root[data-theme="miku"] .filter { min-height: 35px; }
+:root[data-theme="miku"] .filter.active { background: #e3f7fa; border-color: #c6e5f1; color: #2d75a1; }
+:root[data-theme="miku"] .song-grid { gap: 22px 16px; }
+:root[data-theme="miku"] .cover-wrap { border-radius: 10px; box-shadow: 0 4px 14px #42787812; }
+:root[data-theme="miku"] .song-card.selected .cover-wrap { border-color: #39c5bb; box-shadow: 0 0 0 3px #39c5bb18; }
+:root[data-theme="miku"] .card-title { font-size: 12px; margin-top: 10px; }
+:root[data-theme="miku"] .card-badge { background: #edfbfaf5; color: #3a5a73; }
+:root[data-theme="miku"] .selected-check { background: #39c5bb; }
+:root[data-theme="miku"] .song-detail {
+  background: linear-gradient(160deg, #f0fcff, #fbfeff 56%, #f6fcfd);
+  border-left-color: #dae8ed;
+  min-height: calc(100vh - 76px); }
+:root[data-theme="miku"] .detail-cover { transform: rotate(-2deg); box-shadow: 0 12px 28px #42787820; }
+:root[data-theme="miku"] .unit-tag { background: #e4f6fa; color: #3f699a; }
+:root[data-theme="miku"] .difficulty.active { background: #edfbfa; border-color: #39c5bb; color: #2d75a1; }
+:root[data-theme="miku"] .key-guide kbd { border-color: #cddfe4; color: #4a5d79; }
+:root[data-theme="miku"] .audio-note { color: #687a7d; }
+:root[data-theme="miku"] .library-foot { color: #707d84; }
+:root[data-theme="miku"] .editor-tools,
+:root[data-theme="miku"] .timeline { box-shadow: var(--theme-shadow); }
+:root[data-theme="miku"] .note-tools .active { background: #e6f7ff; color: #2d75a1; }
+:root[data-theme="miku"] .note-cell:hover { background: #edfbfa; }
+:root[data-theme="miku"] .lane-labels { background: #f4faff; }
+:root[data-theme="miku"] .beat-label { background: #fbfeff; }
+:root[data-theme="miku"] #waveform { background: #f7fbff; }
+:root[data-theme="miku"] dialog { background: #fbfeff; border-color: #d0e0ea; box-shadow: 0 30px 90px #3c576a30; }
+:root[data-theme="miku"] dialog::backdrop { background: #1d2d3b70; }
+:root[data-theme="miku"] label { color: #4a5d70; }
+:root[data-theme="miku"] .game {
+  height: calc(100dvh - 76px);
+  background: #192326;
+  isolation: isolate;
+}
+:root[data-theme="miku"] .game-character {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: .23;
+  filter: saturate(.65);
+  pointer-events: none;
+  z-index: -2;
+}
+:root[data-theme="miku"] .game::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #0a13197a 0%, #15243030 35%, #0f1721c9 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+:root[data-theme="miku"] .game canvas { position: relative; z-index: 0; }
+:root[data-theme="miku"] .game-top,
+:root[data-theme="miku"] .game-song,
+:root[data-theme="miku"] .game-bottom,
+:root[data-theme="miku"] .combo-display,
+:root[data-theme="miku"] .judgment { z-index: 1; }
+:root[data-theme="miku"] .game-top { color: #f6fcfd; }
+:root[data-theme="miku"] .glass-button { background: #1d2a35a6; border-color: #d2f0ff3b; color: #f4f8fa; backdrop-filter: blur(8px); }
+:root[data-theme="miku"] .game-song strong { text-shadow: 0 2px 12px #061622; }
+:root[data-theme="miku"] .game-song span,
+:root[data-theme="miku"] .score-block small,
+:root[data-theme="miku"] .life-block,
+:root[data-theme="miku"] .game-bottom { color: #cdd8e0; }
+:root[data-theme="miku"] .combo-display { color: #bbf8ff; }
+:root[data-theme="miku"] .combo-display strong { text-shadow: 0 2px 20px #39c5bb44; }
+:root[data-theme="miku"] .game-overlay { background: #13192ad9; z-index: 3; }
+:root[data-theme="miku"] .result-score { color: #d2f0ff; }
+:root[data-theme="miku"] #gameProgress { background: #39c5bb; z-index: 2; }
+
+@media (min-width: 1450px) {
+  :root[data-theme="miku"] .emu-hero { height: 210px; }
+}
+@media (max-width: 1100px) {
+  :root[data-theme="miku"] .local-status { display: none; }
+}
+@media (max-width: 760px) {
+  :root[data-theme="miku"] .topbar { height: 68px; padding: 0 16px; }
+  :root[data-theme="miku"] .brand { font-size: 17px; gap: 7px; }
+  :root[data-theme="miku"] .top-actions { gap: 8px; }
+  :root[data-theme="miku"] .theme-chip { padding: 3px; min-height: 36px; width: 36px; justify-content: center; }
+  :root[data-theme="miku"] .collection { padding: 18px 16px 24px; }
+  :root[data-theme="miku"] .emu-hero { height: 181px; margin-bottom: 26px; border-radius: 13px; }
+  :root[data-theme="miku"] .section-heading { margin-bottom: 20px; }
+  :root[data-theme="miku"] .section-heading h1 { font-size: 26px; }
+  :root[data-theme="miku"] .section-heading .muted { line-height: 1.5; }
+  :root[data-theme="miku"] .song-grid { gap: 19px 10px; }
+  :root[data-theme="miku"] .song-card .card-title { font-size: 11px; }
+  :root[data-theme="miku"] .song-detail { min-height: 0; padding: 24px 20px; }
+  :root[data-theme="miku"] .library { min-height: calc(100vh - 68px); }
+  :root[data-theme="miku"] .game { height: calc(100dvh - 68px); }
+  :root[data-theme="miku"] .game-character { object-position: 59% center; opacity: .18; }
+}
+@media (max-width: 370px) {
+  :root[data-theme="miku"] .section-heading h1 { font-size: 24px; }
+  :root[data-theme="miku"] .filter { font-size: 11px; padding-left: 10px; padding-right: 10px; }
+}

@@ -1,0 +1,84 @@
+{
+  "pack": "Project SEKAI custom01",
+  "downloadedAt": "2026-09-22T15:55:58.860Z",
+  "samples": {
+    "perfect": {
+      "file": "se_live_perfect.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_perfect.wav",
+      "bytes": 123732,
+      "sha256": "03a0f787f8c4fd7e6b97ef185afd1b61d8e9ffc5e6bbd3e65f02fcbc40a89355"
+    },
+    "critical": {
+      "file": "se_live_critical.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_critical.wav",
+      "bytes": 45266,
+      "sha256": "e30c0192eb70916be89c0ea38c9063aff60e130d07bdb6eabe3035321f716c95"
+    },
+    "flick": {
+      "file": "se_live_flick.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_flick.wav",
+      "bytes": 160832,
+      "sha256": "3ec3e32aee2b60f4350f0e9201be16d31dff99efc635a3027bfd3e7fb9f4167d"
+    },
+    "flick_critical": {
+      "file": "se_live_flick_critical.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_flick_critical.wav",
+      "bytes": 109640,
+      "sha256": "16cc1e5034dea6fb22c0f2d5113d9796079eeaf3312c5571da3b6ae0a3e55494"
+    },
+    "connect": {
+      "file": "se_live_connect.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_connect.wav",
+      "bytes": 29612,
+      "sha256": "ce169fad1e664b4d6925c615f43a612ce2582a595776e689cb55057dba160f9f"
+    },
+    "connect_critical": {
+      "file": "se_live_connect_critical.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_connect_critical.wav",
+      "bytes": 80332,
+      "sha256": "4a829afe89fd42558280cb917bbef4fe19242bfbdbbdd6214f4924be4de55d5b"
+    },
+    "trace": {
+      "file": "se_live_trace.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_trace.wav",
+      "bytes": 44896,
+      "sha256": "2709cf6158734e2c4bf05942e0b47ba001aa1a7b1ca10127c0d93de898de2f20"
+    },
+    "trace_critical": {
+      "file": "se_live_trace_critical.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_trace_critical.wav",
+      "bytes": 62216,
+      "sha256": "c93815382d2edf832d026d01ce33f9c8d61705a415c8eb1df8f39d779d246d08"
+    },
+    "long": {
+      "file": "se_live_long.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_long.wav",
+      "bytes": 512084,
+      "sha256": "c64e65985c0a0447ca80b1ce0942914e1fcd06b55ea53599193222a82420a8b2"
+    },
+    "long_critical": {
+      "file": "se_live_long_critical.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_long_critical.wav",
+      "bytes": 705644,
+      "sha256": "1131cf0cfe2f426d1771dc9a3985b9125b13d7e4a4b7583660294bdb8ded60e0"
+    },
+    "great": {
+      "file": "se_live_great.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_great.wav",
+      "bytes": 60120,
+      "sha256": "6d50c047faa033ff865011406a791d1593e8fa52f8764ce4d54b3f2f1129657c"
+    },
+    "good": {
+      "file": "se_live_good.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_good.wav",
+      "bytes": 22046,
+      "sha256": "31fbf52bbe4d11a1405bc4e310e1348cb239221a3e58a4c32333110e0890b74c"
+    },
+    "tap": {
+      "file": "se_live_tap.wav",
+      "source": "https://storage.sekai.best/sekai-jp-assets/live/tap_se/custom01/se_live_tap.wav",
+      "bytes": 26834,
+      "sha256": "5911b2bf9dc3fcb933ec716527355e5edbb9c158a7425c264850ac4a7010fdb0"
+    }
+  }
+}

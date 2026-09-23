@@ -1,0 +1,244 @@
+{
+  "downloadedAt": "2026-09-22T20:46:45.760Z",
+  "credit": "© SEGA / © Colorful Palette Inc. / © Crypton Future Media, INC. All rights reserved.",
+  "characters": [
+    {
+      "id": "ichika",
+      "name": "Hoshino Ichika",
+      "profile": "https://pjsekai.sega.jp/character/unite01/ichika/index.html",
+      "assets": [
+        {
+          "kind": "standing",
+          "local": "assets/characters/ichika/standing.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite01/ichika/now/img.png.webp",
+          "width": 750,
+          "height": 1522,
+          "bytes": 54618,
+          "sha256": "3770694280b0b33afcfc952b9b084bb24d5b6d045d0e768cd3ca473657c333d2"
+        },
+        {
+          "kind": "avatar",
+          "local": "assets/characters/ichika/avatar.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite01/ichika/now/navi_icon.png.webp",
+          "width": 400,
+          "height": 400,
+          "bytes": 18088,
+          "sha256": "a2841d6d32a5ba1cc3c0d080b377fbec2416792681c166402a383fa8846b79ed"
+        },
+        {
+          "kind": "card",
+          "local": "assets/characters/ichika/card.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite01/ichika/card_1.png.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 91532,
+          "sha256": "fd0c2ef4270ad8b99a860cad542fef190bc0fad3fdde058b014ee7e0e1ad9180"
+        }
+      ]
+    },
+    {
+      "id": "saki",
+      "name": "Tenma Saki",
+      "profile": "https://pjsekai.sega.jp/character/unite01/saki/index.html",
+      "assets": [
+        {
+          "kind": "standing",
+          "local": "assets/characters/saki/standing.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite01/saki/now/img.png.webp",
+          "width": 750,
+          "height": 1522,
+          "bytes": 70448,
+          "sha256": "88d66d3f3ac6a9037211ffa5e89bf2222c51798e9c20dae20e5bcb95348a7108"
+        },
+        {
+          "kind": "avatar",
+          "local": "assets/characters/saki/avatar.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite01/saki/now/navi_icon.png.webp",
+          "width": 400,
+          "height": 400,
+          "bytes": 27464,
+          "sha256": "b83f5a79eaddbc33d4953cbd1428e2ee37cdd5df90a6cb4a3f29af907754bec3"
+        },
+        {
+          "kind": "card",
+          "local": "assets/characters/saki/card.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite01/saki/card_1.png.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 166700,
+          "sha256": "e4c8e07ef509934a643a5ebe7026707ae428532b8bf776fc12fcc8f9e43c6f3e"
+        }
+      ]
+    },
+    {
+      "id": "minori",
+      "name": "Hanasato Minori",
+      "profile": "https://pjsekai.sega.jp/character/unite02/minori/index.html",
+      "assets": [
+        {
+          "kind": "standing",
+          "local": "assets/characters/minori/standing.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite02/minori/now/img.png.webp",
+          "width": 750,
+          "height": 1522,
+          "bytes": 53012,
+          "sha256": "8462f09c8066e98caf9322720fd665ff91ea707bebe10fb24f38d383945a8c56"
+        },
+        {
+          "kind": "avatar",
+          "local": "assets/characters/minori/avatar.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite02/minori/now/navi_icon.png.webp",
+          "width": 400,
+          "height": 400,
+          "bytes": 23316,
+          "sha256": "e20ba7d19c3c79a18e03cf2b9d7b2f807a69819298c2b9e42d054221b9b089a7"
+        },
+        {
+          "kind": "card",
+          "local": "assets/characters/minori/card.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite02/minori/card_1.png.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 99798,
+          "sha256": "d4b1ed78b6bfec87bb254463a43145c23a5ca13af425f57fc87e5f7240fc0a21"
+        }
+      ]
+    },
+    {
+      "id": "kohane",
+      "name": "Azusawa Kohane",
+      "profile": "https://pjsekai.sega.jp/character/unite03/kohane/index.html",
+      "assets": [
+        {
+          "kind": "standing",
+          "local": "assets/characters/kohane/standing.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite03/kohane/now/img.png.webp",
+          "width": 750,
+          "height": 1522,
+          "bytes": 44776,
+          "sha256": "fc1f749ad29b5727d5c3084e402d9e24dd2b1c0a52c03ca093be685ea1c25127"
+        },
+        {
+          "kind": "avatar",
+          "local": "assets/characters/kohane/avatar.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite03/kohane/now/navi_icon.png.webp",
+          "width": 400,
+          "height": 400,
+          "bytes": 21198,
+          "sha256": "59a07adb33b714b48d2867092a8fd6c38ca69981836af64b9da8cd76c6672128"
+        },
+        {
+          "kind": "card",
+          "local": "assets/characters/kohane/card.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite03/kohane/card_1.png.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 149216,
+          "sha256": "7c06b6eccdea98592e6dc117513a725b9def26af989f24993a651b32a3372f56"
+        }
+      ]
+    },
+    {
+      "id": "tsukasa",
+      "name": "Tenma Tsukasa",
+      "profile": "https://pjsekai.sega.jp/character/unite04/tsukasa/index.html",
+      "assets": [
+        {
+          "kind": "standing",
+          "local": "assets/characters/tsukasa/standing.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite04/tsukasa/now/img.png.webp",
+          "width": 750,
+          "height": 1522,
+          "bytes": 69864,
+          "sha256": "bbd001a4b821d2232e7cc23e4e93c5766dd4ec5e6dfdb90155332b51f4cd1a9e"
+        },
+        {
+          "kind": "avatar",
+          "local": "assets/characters/tsukasa/avatar.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite04/tsukasa/now/navi_icon.png.webp",
+          "width": 400,
+          "height": 400,
+          "bytes": 17344,
+          "sha256": "3d5a26c5aadc7269d8906af4bf9d6b631f9a26b8147be024a540a4c731b9905c"
+        },
+        {
+          "kind": "card",
+          "local": "assets/characters/tsukasa/card.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite04/tsukasa/card_1.png.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 143618,
+          "sha256": "41cd15bae48abe8f3af8db3243a023332aa688f1985ea60d9eeb6c13a8d38e80"
+        }
+      ]
+    },
+    {
+      "id": "kanade",
+      "name": "Yoisaki Kanade",
+      "profile": "https://pjsekai.sega.jp/character/unite05/kanade/index.html",
+      "assets": [
+        {
+          "kind": "standing",
+          "local": "assets/characters/kanade/standing.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite05/kanade/now/img.png.webp",
+          "width": 750,
+          "height": 1522,
+          "bytes": 40552,
+          "sha256": "15bd1f319e7a71b3f4ebd05e904d6ef7c439d7dc93650f0450ec5b73db9ad216"
+        },
+        {
+          "kind": "avatar",
+          "local": "assets/characters/kanade/avatar.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite05/kanade/now/navi_icon.png.webp",
+          "width": 400,
+          "height": 400,
+          "bytes": 14664,
+          "sha256": "ae9c34a4255634632b502ac593697d2196f1bcbf4c27666046c9af633891bef4"
+        },
+        {
+          "kind": "card",
+          "local": "assets/characters/kanade/card.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/unite05/kanade/card_1.png.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 113518,
+          "sha256": "178108d2aa59ee83ee179fc7587a078232703ad682fbfae348e64701e47d903d"
+        }
+      ]
+    },
+    {
+      "id": "miku",
+      "name": "Hatsune Miku",
+      "profile": "https://pjsekai.sega.jp/character/virtualsinger/miku/index.html",
+      "assets": [
+        {
+          "kind": "standing",
+          "local": "assets/characters/miku/standing.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/virtualsinger/miku/now/img.png.webp",
+          "width": 750,
+          "height": 1522,
+          "bytes": 88064,
+          "sha256": "0483355af152b09cdabbfcc63306adc6e3250a3ece923643ac304f42ac6c62f6"
+        },
+        {
+          "kind": "avatar",
+          "local": "assets/characters/miku/avatar.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/virtualsinger/miku/now/navi_icon.png.webp",
+          "width": 400,
+          "height": 400,
+          "bytes": 22536,
+          "sha256": "5d6851b479eb24c72fef34b8086aa1e714b40e48c532a71b7e7cdbb6d08f3cf8"
+        },
+        {
+          "kind": "card",
+          "local": "assets/characters/miku/card.webp",
+          "source": "https://pjsekai.sega.jp/assets/data/webp/character/virtualsinger/miku/now/img.png.webp",
+          "width": 750,
+          "height": 1522,
+          "bytes": 88064,
+          "sha256": "0483355af152b09cdabbfcc63306adc6e3250a3ece923643ac304f42ac6c62f6"
+        }
+      ]
+    }
+  ]
+}
