@@ -4,6 +4,7 @@ import {HitAudio} from './hit-audio.js';
 import {LaneRenderer, laneGeometry} from './renderer.js';
 import {slideIsHeld} from './slide.js';
 import {getTheme} from './themes.js';
+import {getHostedSongs} from './library.js';
 import {initAuth} from './auth.js';
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const safe = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -44,9 +45,11 @@ function applyAppearance() {
 }
 function setView(next) {view=next;for(const id of ['library','game','editor'])$('#'+id).classList.toggle('hidden',id!==next);document.body.dataset.view=next;window.scrollTo(0,0);}
 function renderLibrary() {
-  let list=songs.filter(song=>{const query=$('#search').value.toLowerCase();return `${song.title} ${song.japanese} ${song.artist} ${song.group}`.toLowerCase().includes(query)&&(filter!=='ready'||ready(song))&&(filter!=='favorite'||favorites.has(song.id))&&(filter!=='charts'||charts[song.id]);});
+  const hostedSongs=getHostedSongs(songs,manifest);
+  let list=hostedSongs.filter(song=>{const query=$('#search').value.toLowerCase();return `${song.title} ${song.japanese} ${song.artist} ${song.group}`.toLowerCase().includes(query)&&(filter!=='ready'||ready(song))&&(filter!=='favorite'||favorites.has(song.id))&&(filter!=='charts'||charts[song.id]);});
   if($('#sort').value==='az')list.sort((a,b)=>a.title.localeCompare(b.title));
-  $('#songCount').textContent=`${list.length} songs${filter==='all'?' · '+songs.filter(ready).length+' ready to play':''}`;
+  const hiddenCount=songs.length-hostedSongs.length;
+    $('#songCount').textContent=`${list.length} playable · ${hiddenCount} hidden (no hosted audio)`;
   $('#songGrid').innerHTML=list.slice(0,limit).map(song=>`<button class="song-card ${song.id===selected?.id?'selected':''}" data-song="${song.id}" aria-label="Select ${safe(song.title)}" aria-pressed="${song.id===selected?.id}"><div class="cover-wrap" style="--hue:${(Number(song.id)*47||220)%360}">${cover(song)?`<img src="${safe(cover(song))}" alt="${safe(song.title)} cover" loading="lazy">`:''}<span class="card-badge">${charts[song.id]?'MY CHART':ready(song)?'READY TO PLAY':'CATALOG'}</span>${song.id===selected?.id?'<span class="selected-check">✓</span>':''}</div><div class="card-title">${safe(song.title)}</div><div class="card-artist">${safe(song.artist)}</div></button>`).join('')||'<p class="empty">No songs here yet. Try a different search or add your own audio.</p>';
   $('#moreSongs').classList.toggle('hidden',list.length<=limit);
   $$('.song-card img').forEach(img=>img.onerror=()=>img.style.visibility='hidden');
