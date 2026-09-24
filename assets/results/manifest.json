@@ -1,0 +1,114 @@
+[
+  {
+    "character": "emu",
+    "kind": "card",
+    "title": "Our Feelings Become One",
+    "source": "https://storage.sekai.best/sekai-jp-assets/character/member/res014_no010/card_after_training.png",
+    "sha256": "2e5c83f68072d1f8e41c5cd6871d5008f057ebdafc5a5039621c264f0b9e95b0"
+  },
+  {
+    "character": "emu",
+    "kind": "stamp",
+    "title": "Wonderhoy!",
+    "source": "https://storage.sekai.best/sekai-en-assets/stamp/stamp0168/stamp0168.png",
+    "sha256": "c7421fdccb96274b885ad923e715b255e00d423e550f677b9b2741b433b3b3c0"
+  },
+  {
+    "character": "ichika",
+    "kind": "card",
+    "title": "Smiling Once More",
+    "source": "https://storage.sekai.best/sekai-jp-assets/character/member/res001_no006/card_after_training.png",
+    "sha256": "c88c011f722a9ee6b9553555ef500a00472b1b8d2877517de07d7667a5039efb"
+  },
+  {
+    "character": "ichika",
+    "kind": "stamp",
+    "title": "Hehe",
+    "source": "https://storage.sekai.best/sekai-en-assets/stamp/stamp0051/stamp0051.png",
+    "sha256": "c55d4f41ad8fdb8971656f018b0ac3a242e550f610d42a1e3943f1245662eef9"
+  },
+  {
+    "character": "saki",
+    "kind": "card",
+    "title": "The Best Doll Festival!",
+    "source": "https://storage.sekai.best/sekai-jp-assets/character/member/res002_no009/card_after_training.png",
+    "sha256": "38179972d4d610c02abff348fa2cd2e2de6d1fa461cb867a9e7107eb355e0370"
+  },
+  {
+    "character": "saki",
+    "kind": "stamp",
+    "title": "Yay!",
+    "source": "https://storage.sekai.best/sekai-en-assets/stamp/stamp0060/stamp0060.png",
+    "sha256": "d57774b0d62f33530a06070d14f67fbe1e1c1df09f5f94b6976dab986d3028ad"
+  },
+  {
+    "character": "minori",
+    "kind": "card",
+    "title": "For \"Your\" Sake",
+    "source": "https://storage.sekai.best/sekai-jp-assets/character/member/res005_no007/card_after_training.png",
+    "sha256": "1470e9c21d4f8723d2045c744ecc7131843c9fe7fd5c94a5385b3373b6625e3e"
+  },
+  {
+    "character": "minori",
+    "kind": "stamp",
+    "title": "Hehehe",
+    "source": "https://storage.sekai.best/sekai-en-assets/stamp/stamp0090/stamp0090.png",
+    "sha256": "4d85dd25c6c23b7652f9de3b7cf05c18a5ad78024d508f588cf9eceb1ba8e7aa"
+  },
+  {
+    "character": "kohane",
+    "kind": "card",
+    "title": "Once More, Together",
+    "source": "https://storage.sekai.best/sekai-jp-assets/character/member/res009_no005/card_after_training.png",
+    "sha256": "a4488bf5a7638e5188d0706fec13d3fcd6689dde55d5b92b56aab5982719e597"
+  },
+  {
+    "character": "kohane",
+    "kind": "stamp",
+    "title": "We did it!",
+    "source": "https://storage.sekai.best/sekai-en-assets/stamp/stamp0394/stamp0394.png",
+    "sha256": "f9b4db306348347233d5e49f036d72e66249c1fdb41d10d9cc231276427dda10"
+  },
+  {
+    "character": "tsukasa",
+    "kind": "card",
+    "title": "I'm The Lead!",
+    "source": "https://storage.sekai.best/sekai-jp-assets/character/member/res013_no006/card_after_training.png",
+    "sha256": "84c49fed60bd2cbcccab4237fcd383ba4bea98cf05976f20914fe6db98f38d69"
+  },
+  {
+    "character": "tsukasa",
+    "kind": "stamp",
+    "title": "Ha ha ha!",
+    "source": "https://storage.sekai.best/sekai-en-assets/stamp/stamp0152/stamp0152.png",
+    "sha256": "4b212c6980244b2a23566c3f81e36547a64d7c42cb91538e98f802a4525a5437"
+  },
+  {
+    "character": "kanade",
+    "kind": "card",
+    "title": "From Feeling To Melody",
+    "source": "https://storage.sekai.best/sekai-jp-assets/character/member/res017_no006/card_after_training.png",
+    "sha256": "9fa40ee7c8554aba8ad0970a8fca7ebeb01e548b0feacaff8166aede6e5fe577"
+  },
+  {
+    "character": "kanade",
+    "kind": "stamp",
+    "title": "That's nice...",
+    "source": "https://storage.sekai.best/sekai-en-assets/stamp/stamp0193/stamp0193.png",
+    "sha256": "b13ccb86222574166e34ee639bc329579213f9832efdcc40e751c6508718f54c"
+  },
+  {
+    "character": "miku",
+    "kind": "card",
+    "title": "The Big Debut",
+    "source": "https://storage.sekai.best/sekai-jp-assets/character/member/res021_no008/card_after_training.png",
+    "sha256": "268384f69482a75aebad073ce58a26e63cc3fd36f03083d93a0e996319ae9eb3"
+  },
+  {
+    "character": "miku",
+    "kind": "stamp",
+    "title": "Hehehe",
+    "source": "https://storage.sekai.best/sekai-en-assets/stamp/stamp0234/stamp0234.png",
+    "sha256": "78c7d17eccb2682469109ff65c1d464e3c3757f4a29c9c8aaaa3b8b3967614cb"
+  }
+]

@@ -10,6 +10,7 @@ A personal, browser-based rhythm game inspired by Project SEKAI: a colorful song
 
 ## What's new
 
+- **Character result cards:** all eight character themes show their own official trained card illustration, plus a matching reaction stamp for a New Best, Full Combo, or All Perfect. Phones use a compact illustrated banner. [Artwork sources](assets/results/SOURCES.md).
 - **Miku's new stage:** a mint-and-teal illustrated background supplied by the project owner, with a portrait crop for smaller screens.
 - **A deeper approaching lane:** a narrower horizon, wider judgment line, accelerating note movement, glowing hold and slide trails, beat lighting, and theme-colored hit effects.
 - **A redesigned results screen:** clearer score/rank hierarchy, grouped judgments and timing stats, character artwork, and layouts for desktop, ultrawide, mobile, and short landscape screens.
@@ -46,7 +47,11 @@ Browse the hosted songs, pick a difficulty, favorite a track, or open Chart Stud
 
 | Live results | Pause and practice |
 | --- | --- |
-| ![Redesigned results with rank, score, judgments, timing, and Miku artwork](docs/screenshots/results-desktop.png) | ![Pause menu with resume count-in, restart, controls, and return actions](docs/screenshots/pause-desktop.png) |
+| ![Redesigned results with rank, score, judgments, timing, Emu card art and a reaction stamp](docs/screenshots/results-desktop.png) | ![Pause menu with resume count-in, restart, controls, and return actions](docs/screenshots/pause-desktop.png) |
+
+Each character has a matching illustration and celebration stamp:
+
+![Results for Emu, Ichika, Saki, Minori, Kohane, Tsukasa, Kanade and Miku](docs/screenshots/results-characters.png)
 
 ### Build a chart
 

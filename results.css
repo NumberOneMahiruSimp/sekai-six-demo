@@ -1,4 +1,4 @@
-/* A fluid result stage: the score leads, the selected character shares the stage. */
+/* A fluid result stage with official card artwork and achievement reactions. */
 .game-overlay.is-result {
   --result-text: #f7f8ff;
   --result-muted: #b7bbd1;
@@ -212,4 +212,46 @@
   .results-main, .results-rank-letter { animation: results-enter .35s ease-out both; }
   .results-art { animation: results-enter .5s ease-out both; }
   @keyframes results-enter { from { opacity: 0; translate: 0 8px; } to { opacity: var(--result-enter-opacity, 1); translate: 0 0; } }
+}
+
+/* Card illustrations keep their scenery; reactions belong to the score. */
+.results-body { grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr); gap: clamp(24px, 3vw, 48px); }
+.results-art { align-self: center; height: min(56vh, 640px); min-height: 300px; border: 1px solid #ffffff20; border-radius: 12px; isolation: isolate; background: #30263b; box-shadow: 0 12px 40px #0b0a1928; }
+.results-art::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, #211629f5, transparent 45%), linear-gradient(90deg, #21162940, transparent 25%); }
+.results-card-art { width: 100%; height: 100%; display: block; object-fit: cover; }
+.results-art-unit { position: absolute; left: 18px; top: 18px; z-index: 1; max-width: calc(100% - 36px); padding: 7px 10px; border: 1px solid #ffffff25; border-radius: 4px; background: #24192b9c; color: #fff; font-size: 9px; letter-spacing: .14em; font-weight: 700; }
+.results-card-caption { position: absolute; left: 24px; right: 24px; bottom: 24px; z-index: 1; text-align: left; }
+.results-card-caption span { display: block; color: #f1cbdf; font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.results-card-caption strong { display: block; margin-top: 8px; color: #fff; font: 600 clamp(19px, 2vw, 29px)/1.15 'Space Grotesk', sans-serif; text-wrap: balance; }
+.results-score-card[data-reaction="true"] { display: grid; grid-template-columns: minmax(0, 1fr) clamp(76px, 7.5vw, 115px); column-gap: 14px; align-items: center; }
+.results-score-card[data-reaction="true"] .results-score-label { grid-column: 1; grid-row: 1; flex-wrap: wrap; gap: 6px; }
+.results-score-card[data-reaction="true"] .results-score { grid-column: 1; grid-row: 2; font-size: clamp(37px, min(5.2vw, 8vh), 88px); }
+.results-score-card[data-reaction="true"] .results-best { grid-column: 1 / -1; margin-top: 10px; }
+.results-reaction { width: 100%; max-height: 115px; object-fit: contain; grid-column: 2; grid-row: 1 / 3; filter: drop-shadow(0 5px 12px #0003); }
+@media (max-width: 1000px) and (min-width: 761px) {
+  .results-body { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; }
+  .results-art { height: min(54vh, 470px); }
+  .results-card-caption { left: 16px; right: 16px; bottom: 18px; }
+}
+@media (max-width: 760px) {
+  .results-body { display: flex; flex-direction: column; gap: 0; }
+  .results-art { --result-enter-opacity: 1; order: -1; position: relative; inset: auto; width: 100%; height: 120px; min-height: 120px; opacity: 1; margin-top: 14px; border-radius: 9px; }
+  .results-card-caption { left: 14px; right: 14px; bottom: 13px; }
+  .results-card-caption span { font-size: 8px; }
+  .results-card-caption strong { font-size: 19px; margin-top: 4px; }
+  .results-art-unit { top: 10px; left: 12px; font-size: 7px; padding: 5px 7px; }
+  .results-main { width: 100%; padding: 16px 0; }
+  .results-clear-badge { margin-bottom: 12px; }
+  .results-score-card[data-reaction="true"] { grid-template-columns: minmax(0, 1fr) 70px; gap: 0 9px; }
+  .results-score-card[data-reaction="true"] .results-score { font-size: clamp(34px, 10vw, 64px); }
+  .results-reaction { max-height: 80px; }
+}
+@media (max-height: 680px) and (min-width: 761px) {
+  .results-art { min-height: 210px; height: 54vh; }
+  .results-score-card[data-reaction="true"] .results-score { font-size: clamp(32px, 6.8vh, 48px); }
+  .results-reaction { max-height: 76px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .results-reaction { animation: result-stamp-pop .4s ease-out both; }
+  @keyframes result-stamp-pop { from { opacity: 0; transform: scale(.8) rotate(-5deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
 }

@@ -1,3 +1,4 @@
+import {RESULT_ART} from './result-art.js';
 // One registry drives theme selection, artwork, captions, and saved preferences.
 export const THEMES = {
   emu: {name:'Emu Otori',short:'Emu',unit:'Wonderlands × Showtime',title:['A little wonder.','A lot of rhythm.'],tag:'✦ WONDERHOY!',avatar:'assets/emu/emu-avatar.webp',standing:'assets/emu/emu-standing.webp',card:'assets/emu/emu-card.webp'},
@@ -11,6 +12,7 @@ export const THEMES = {
   classic: {name:'Classic',short:'Classic'},
 };
 for(const [id,theme] of Object.entries(THEMES)) {
+  theme.resultArt=RESULT_ART[id];
   if(id==='classic'||id==='emu')continue;
   for(const asset of ['avatar','standing','card'])theme[asset]=`assets/characters/${id}/${asset}.webp`;
 }
