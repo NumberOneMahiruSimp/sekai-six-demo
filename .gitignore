@@ -1,4 +1,7 @@
 node_modules/
+.claude/
+.codex/
+.agents/
 backups/
 qa/*.png
 qa/*.json

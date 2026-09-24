@@ -7,7 +7,7 @@ export const THEMES = {
   kohane: {name:'Kohane Azusawa',short:'Kohane',unit:'Vivid BAD SQUAD',title:['Find your voice.','Feel the beat.'],tag:'✦ VIVID BAD SQUAD'},
   tsukasa: {name:'Tsukasa Tenma',short:'Tsukasa',unit:'Wonderlands × Showtime',title:['The lights are up.','Your stage awaits.'],tag:'✦ WONDERLANDS × SHOWTIME'},
   kanade: {name:'Kanade Yoisaki',short:'Kanade',unit:'Nightcord at 25:00',title:['A quiet night.','A melody to keep.'],tag:'✦ NIGHTCORD AT 25:00'},
-  miku: {name:'Hatsune Miku',short:'Miku',unit:'VIRTUAL SINGER',title:['Your world.','Your melody.'],tag:'✦ VIRTUAL SINGER'},
+  miku: {name:'Hatsune Miku',short:'Miku',unit:'VIRTUAL SINGER',title:['Your world.','Your melody.'],tag:'✦ VIRTUAL SINGER',background:'assets/characters/miku/background.png'},
   classic: {name:'Classic',short:'Classic'},
 };
 for(const [id,theme] of Object.entries(THEMES)) {

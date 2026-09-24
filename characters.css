@@ -21,12 +21,21 @@
 :root[data-theme="tsukasa"] { --accent-dark:#8b5018; }
 :root[data-theme="minori"] { --accent-dark:#ad2459; }
 :root[data-theme="kohane"] { --accent-dark:#954615; }
-:root[data-theme="miku"] .game-character { object-fit:contain; object-position:85% 18%; }
+:root[data-theme="miku"] .game-character {
+  object-fit: cover;
+  object-position: center;
+  opacity: .92;
+  filter: saturate(.86);
+}
+:root[data-theme="miku"] .game::before {
+  background: linear-gradient(180deg, #0a131946 0%, #15243018 35%, #0f17217a 100%);
+}
 @media(min-width:761px) {
   :root[data-theme]:not([data-theme="emu"]) .emu-hero-art { transform:translateY(22px); }
 }
 
 @media(max-width:760px) {
+  :root[data-theme="miku"] .game-character { object-position: 60% center; opacity: .88; }
   .theme-options { grid-template-columns:1fr 1fr; gap:8px; }
   #settingsDialog .theme-option { display:flex; flex-direction:column; align-items:flex-start; gap:7px; min-width:0; padding:12px; }
   .theme-option img { width:43px; height:43px; }

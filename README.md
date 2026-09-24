@@ -1,76 +1,155 @@
 # SEKAI / SIX
 
-**A tiny six-lane rhythm-game playground.** Pick a song, shape a chart, tune your controls, and take the stage.
+**Six keys. Your music. Your stage.**
 
-SEKAI / SIX is an unofficial, browser-based personal project inspired by the feel of Project SEKAI. It focuses on a clean song-library layout, readable six-key gameplay, and a built-in chart editor. Charts in this project are original practice arrangements—not official Project SEKAI charts—and official character voice recordings are not included.
+A personal, browser-based rhythm game inspired by Project SEKAI: a colorful song library, an approaching six-lane stage, character themes, and a chart editor for making your own arrangements.
 
-![The Emu Otori-themed song library](docs/screenshots/library-desktop.png)
+[**Play the game →**](https://sekai-six-demo.vercel.app/) · [Get started](#run-locally) · [Create a chart](#chart-studio) · [Feature gallery](#feature-gallery)
+
+![Six-lane gameplay with the new user-supplied Miku background, holds, slides, and upward flicks](docs/screenshots/game-desktop.png)
+
+## What's new
+
+- **Miku's new stage:** a mint-and-teal illustrated background supplied by the project owner, with a portrait crop for smaller screens.
+- **A deeper approaching lane:** a narrower horizon, wider judgment line, accelerating note movement, glowing hold and slide trails, beat lighting, and theme-colored hit effects.
+- **A redesigned results screen:** clearer score/rank hierarchy, grouped judgments and timing stats, character artwork, and layouts for desktop, ultrawide, mobile, and short landscape screens.
+- **Custom music videos:** choose video On/Off before a live, import an MP4/WebM, and save a per-song delay. The clip waits through the count-in and follows pause, resume, and restart.
 
 ## At a glance
 
-- Six lanes with keyboard or touch input, configurable bindings, and upward flicks.
-- Audio-informed, deterministic practice-chart generation at Easy, Normal, and Hard, plus a playable demo chart.
-- Chart Studio with a waveform, beat grid, BPM and offset controls, taps, holds, flicks, accents, test play, and JSON import/export.
-- A 721-entry metadata catalog retained in `catalog.json`; the live library only shows tracks with audio hosted in the deployment.
-- Search, favorites, custom audio, and a bundled starter selection. Forty songs currently have audio files on-site.
-- Character themes for Emu Otori, Ichika Hoshino, Saki Tenma, Minori Hanasato, Kohane Azusawa, Tsukasa Tenma, Kanade Yoisaki, and Hatsune Miku, plus a Classic theme.
-- Hit-sound styles, volume and timing settings, lane perspective options, effects, and no-fail practice.
-- Optional Google and Discord sign-in with Supabase-backed settings, favorites, charts, and scores.
-
-> **Demo note:** only songs with audio bundled in the deployment appear in the website library. The full catalog remains in `catalog.json`; entries without a hosted audio file are hidden from the UI. Generated charts are for practice and may need timing adjustment or editing.
-
-## Screenshots
-
-| Six-lane live play | Chart Studio |
+| Feature | Included |
 | --- | --- |
-| ![Six-lane gameplay](docs/screenshots/game-desktop.png) | ![Chart Studio beat grid and waveform](docs/screenshots/editor-desktop.png) |
+| Music library | **40 hosted audio tracks**, covers, search, favorites, and three practice difficulties. The full **721-song metadata catalog** remains in `catalog.json`; entries without hosted audio are hidden from the website library. |
+| Six-key gameplay | Keyboard and touch input; taps, holds, lane-switching slides, upward flicks, and critical/accent notes. |
+| Chart Studio | Waveform, beat grid, BPM/offset adjustment, beat snapping, five slide routes, test play, and JSON import/export. |
+| Personal controls | Rebind every lane and the flick modifier, choose a keyboard preset, or enable tap-assist flicks. |
+| Sound and timing | Original Project SEKAI hit samples plus Pop, Soft, and Arcade styles; separate music/hit volumes; note travel time; timing offset; no-fail practice. |
+| Character themes | Emu, Ichika, Saki, Minori, Kohane, Tsukasa, Kanade, Hatsune Miku, and a quiet Classic theme. |
+| Stage appearance | Perspective or straight lanes, note size, artwork dimming, and optional glow/particles. Decorative motion respects reduced-motion preferences. |
+| Post-live results | C/B/A/S rank, five judgment counts, max combo, accuracy, FAST/LATE and flick errors, personal bests, Full Combo and All Perfect badges. |
+| Music videos | Local MP4/WebM import, On/Off selection, and a saved timing adjustment for each song. |
+| Accounts | Optional Google/Discord sign-in through Supabase; sync settings, favorites, charts, and personal-best records. |
 
-| Mobile library | Mobile settings |
+The charts are original, audio-informed practice arrangements—not the official Project SEKAI charts. They are deterministic for each song/difficulty and can be edited when their timing needs adjustment. Scores use this demo's one-million-point scale, without card-power bonuses.
+
+## Feature gallery
+
+Screenshots show the app with example chart and result data. Local video controls are demonstrated with an imported preview clip.
+
+### Pick your next live
+
+Browse the hosted songs, pick a difficulty, favorite a track, or open Chart Studio.
+
+![Desktop song library, song artwork, filters, difficulty selection, and track details](docs/screenshots/library-desktop.png)
+
+### Play, pause, and see your results
+
+| Live results | Pause and practice |
 | --- | --- |
-| ![Mobile song library](docs/screenshots/library-mobile.png) | ![Mobile appearance settings](docs/screenshots/settings-mobile.png) |
+| ![Redesigned results with rank, score, judgments, timing, and Miku artwork](docs/screenshots/results-desktop.png) | ![Pause menu with resume count-in, restart, controls, and return actions](docs/screenshots/pause-desktop.png) |
+
+### Build a chart
+
+Place notes against the waveform and beat grid, shape a slide route, and test the arrangement without leaving the app.
+
+![Chart Studio with slide tools, route presets, waveform, beat snapping, and export controls](docs/screenshots/editor-desktop.png)
+
+### Make it feel right
+
+| Character themes and appearance | Keyboard and flick controls | Sound and timing |
+| --- | --- | --- |
+| ![Character theme selection and stage appearance settings](docs/screenshots/themes-desktop.png) | ![Six customizable lane keys, layouts, and flick behavior](docs/screenshots/controls-desktop.png) | ![Note speed, music and hit sound volume, sound styles, timing, and practice mode](docs/screenshots/sound-desktop.png) |
+
+### Bring a video and keep your progress
+
+| Optional music video | Optional account |
+| --- | --- |
+| <img src="docs/screenshots/video-controls.png" alt="Song panel with imported video, video toggle, and per-song delay" width="310"> | <img src="docs/screenshots/accounts.png" alt="Google and Discord sign-in dialog" width="430"> |
+
+The sign-in image shows the provider selection screen; signing in is optional for playing locally.
+
+### Smaller screen, same six lanes
+
+| Mobile library | Mobile stage | Mobile results |
+| --- | --- | --- |
+| ![Portrait music library](docs/screenshots/library-mobile.png) | ![Portrait gameplay with Miku's illustrated background](docs/screenshots/game-mobile.png) | ![Compact results with all statistics and both action buttons visible](docs/screenshots/results-mobile.png) |
 
 ## Run locally
 
-Requires Node.js 18 or newer. Dependencies are not needed for the basic app.
+Requires Node.js 18 or newer. The basic game has no install-time dependencies.
 
 ```bash
 npm start
 ```
 
-Open [http://127.0.0.1:5173](http://127.0.0.1:5173). Keep the server running and use a browser; opening `index.html` directly as a file will not work correctly.
+Open [http://127.0.0.1:5173](http://127.0.0.1:5173). Keep the server running. Use the server URL rather than opening `index.html` directly.
+
+`npm start` runs the static gameplay preview. It does not run the Vercel `/api/auth-config` function, so Google/Discord login and cloud saves are available on a configured deployment, not this basic local server.
 
 ## Play
 
-- Default lanes: **D F G J K L**. Change them in **Settings → Controls**. Reserved and duplicate bindings are rejected.
-- Tap a lane at the judgment line. Hold notes stay pressed through the tail. Swipe upward on touch for a flick; on keyboard, use **Shift + lane** (or the optional tap assist).
-- **Escape** pauses. The game pauses when the browser loses focus and resumes with a count-in.
-- Pick a song and difficulty, or try the featured demo. No-fail practice is enabled by default.
-- A positive timing offset moves the notes later relative to the music. Change the offset in Settings; it applies on the next play.
+- Default lane keys are **D F G / J K L**. Change them in **Settings → Controls**; duplicate and reserved bindings are rejected.
+- Tap at the judgment line. Keep a hold pressed through its tail. For slides, switch to the lane underneath the path, or follow it with a finger.
+- Pink flick notes use **Shift + lane** on keyboard or an upward swipe on touch. Tap assist is available in Controls.
+- **Escape** pauses. Resume includes a count-in; re-hold any active long notes during it. Practice mode keeps the song going at zero life.
+- Adjust note travel time, music/hit volumes, and timing in **Settings → Play & sound**. Positive timing offsets move notes later and apply on the next play.
+- Try **Perspective · approaching stage** for the deeper lane, or **Straight · vertical lanes** for a linear view. Change note size and background dimming in Appearance.
 
-## Make a chart
+### Music video timing
 
-Open a song and choose **Chart Studio**. Set BPM and the first-beat offset, place notes on the eight-beat pages, then test the working chart before saving. The editor supports quarter-, eighth-, and sixteenth-note snapping, taps, holds, flicks, and accents. Export charts as JSON to back them up or move them between browsers. Audio is not included in chart exports.
+1. Select a song and use **Add MMD** to import its MP4 or WebM (under 200 MB).
+2. Turn **Music video** on before playing. The video stays muted; the selected song supplies the audio.
+3. If the clip is ahead of the music, increase **Video delay**. A negative value skips the clip's intro. For example, `+1.00` starts the video one second later, while `-1.00` starts one second into it.
 
-## Accounts and cloud saves
+Video files, On/Off choices, and delay values are saved in that browser. They are not uploaded to the website or synced to other devices. No MVs are bundled with the deployment. **Replace audio** can similarly attach a local recording to an existing track; the shared catalog remains unchanged.
 
-Google and Discord sign-in use Supabase Auth. Cloud saves require the Supabase schema and environment variables described in [`supabase/schema.sql`](supabase/schema.sql) and the setup notes below. The browser should only receive the public anon/publishable key—never a service-role key.
+### Results and grades
 
-For a local setup, configure `SUPABASE_URL` and `SUPABASE_ANON_KEY` in the environment used by the server. For Vercel, configure those values in the project's environment settings and redeploy. Add your own app's URLs to the Supabase auth redirect allow-list and configure Google/Discord provider credentials in the Supabase dashboard. Provider secrets belong in Supabase, not in this repository.
+| Rank | Score on the demo's 1,000,000-point scale |
+| --- | --- |
+| C | Below 500,000 |
+| B | 500,000–749,999 |
+| A | 750,000–899,999 |
+| S | 900,000–1,000,000 |
 
-## Tests and catalog
+GOOD, BAD, and MISS break combo. Full Combo requires every note to be PERFECT or GREAT; All Perfect requires every note to be PERFECT. FAST/LATE describe non-perfect timing judgments, and FLICK ERRORS count flicks judged in the wrong direction. Personal bests are kept per exact chart and difficulty.
+
+## Chart Studio
+
+Open a song and choose **Chart Studio**. Set BPM and first-beat offset, pick quarter/eighth/sixteenth-note snapping, and place taps, holds, slides, flicks, or accents on the eight-beat pages.
+
+Slides offer five route presets: toward center or edge, with or without returning, plus a two-turn route. Set the hold/slide length, choose a route, and place its head. JSON charts can also define slide control points.
+
+Use **Listen** to inspect the audio, **Test play** to try the working chart, and **Save chart** to keep it. Export JSON for backups or transfer between browsers; chart exports do not contain audio or video.
+
+## Accounts and deployment
+
+The live site is hosted on Vercel. Google/Discord authentication and cloud saves use Supabase. For your own deployment:
+
+1. Configure the database using [`supabase/schema.sql`](supabase/schema.sql).
+2. Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` in the Vercel project's environment settings. The latter is the public anon/publishable key, not a service-role key.
+3. Configure the Google/Discord providers in Supabase and add the deployed site's URL to the authentication redirect allow-list.
+4. Redeploy so [`api/auth-config.js`](api/auth-config.js) can expose the public browser configuration.
+
+Provider client secrets stay in Supabase. Cloud sync covers settings, favorites, charts, and personal-best records; imported media and video timing preferences stay local. The game remains playable without signing in.
+
+Vercel serves the static app from the project root plus the auth configuration function. [`.vercelignore`](.vercelignore) keeps development files and documentation screenshots out of the deployed site.
+
+## Checks and catalog
 
 ```bash
 npm test
 npm run build
 ```
 
-The tests cover chart generation and variety, difficulty density, lane use, timing windows, note overlaps, flicks, legacy chart import, and preference migration. `npm run build` regenerates the catalog from the checked-in source snapshots.
+Tests cover chart variety and validity, timing windows, slide handovers, sound behavior, control preferences, hosted-song filtering, perspective/pointer alignment, result grading, chart-specific records, and video timing. The build regenerates `catalog.json` from the checked-in metadata snapshots; it does not download new songs.
+
+The latest layout was checked at desktop, laptop, ultrawide, portrait mobile, and short landscape sizes. Screenshot assets for this page are in [`docs/screenshots/`](docs/screenshots/).
 
 ## Credits and scope
 
-- Song metadata is based on the public [Sekai-World master database](https://github.com/Sekai-World/sekai-master-db-diff) and its [English localization data](https://github.com/Sekai-World/sekai-master-db-en-diff).
-- Character artwork, song jacket art, and any bundled game audio remain the property of their respective rights holders. Source notes and asset manifests are in the `assets/` directory.
-- Project SEKAI is © SEGA / Colorful Palette Inc. / Crypton Future Media, INC. This is an unofficial personal project and is not affiliated with or endorsed by them.
-- **No official charts or character voice lines are included.** The playable charts are original practice charts; this repository does not include voice-line recordings.
-
-If you publish a fork or deployment, check the rights and terms for every media asset and audio source you include.
+- Song metadata uses the public [Sekai-World master database](https://github.com/Sekai-World/sekai-master-db-diff) and its [English localization data](https://github.com/Sekai-World/sekai-master-db-en-diff).
+- Profile artwork, song jackets, music, and game sound effects belong to their respective rights holders. Asset sources are documented in [`assets/`](assets/), including [character artwork](assets/characters/SOURCES.md), [Emu artwork](assets/emu/SOURCES.md), [music](assets/AUDIO-SOURCES.md), and [hit sounds](assets/sfx/SOURCES.md).
+- Miku's new gameplay background was supplied by the project owner. Its original artist/source URL was not provided; see the [background source note](assets/characters/SOURCES.md#user-supplied-miku-background).
+- Project SEKAI is © SEGA / Colorful Palette Inc. / Crypton Future Media, INC. This is an unofficial personal project, not affiliated with or endorsed by them.
+- Official Project SEKAI charts and character voice-line recordings are not included. Playable charts are original practice arrangements.
