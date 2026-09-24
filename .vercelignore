@@ -8,6 +8,5 @@ backups/
 qa/
 docs/
 tests/
-scripts/
 .env
 .env.*
