@@ -6,7 +6,7 @@ A personal, browser-based rhythm game inspired by Project SEKAI: a colorful song
 
 [**Play the game →**](https://sekai-six-demo.vercel.app/) · [Get started](#run-locally) · [Create a chart](#chart-studio) · [Feature gallery](#feature-gallery)
 
-![Six-lane gameplay with the new user-supplied Miku background, holds, slides, and upward flicks](docs/screenshots/game-desktop.png)
+![Emu-themed six-lane gameplay with holds, slides, and upward flicks](docs/screenshots/game-desktop.png)
 
 ## What's new
 
@@ -35,7 +35,7 @@ The charts are original, audio-informed practice arrangements—not the official
 
 ## Feature gallery
 
-Screenshots show the app with example chart and result data. Local video controls are demonstrated with an imported preview clip.
+The Emu gameplay screenshot was captured during a live song, and Chart Studio was captured from the running app. Results show example score data. Local video controls are demonstrated with an imported preview clip.
 
 ### Pick your next live
 
@@ -43,11 +43,9 @@ Browse the hosted songs, pick a difficulty, favorite a track, or open Chart Stud
 
 ![Desktop song library, song artwork, filters, difficulty selection, and track details](docs/screenshots/library-desktop.png)
 
-### Play, pause, and see your results
+### See your results
 
-| Live results | Pause and practice |
-| --- | --- |
-| ![Redesigned results with rank, score, judgments, timing, Emu card art and a reaction stamp](docs/screenshots/results-desktop.png) | ![Pause menu with resume count-in, restart, controls, and return actions](docs/screenshots/pause-desktop.png) |
+![Emu-themed results with rank, score, judgments, timing, card art and a reaction stamp](docs/screenshots/results-desktop.png)
 
 Each character has a matching illustration and celebration stamp:
 
@@ -57,13 +55,7 @@ Each character has a matching illustration and celebration stamp:
 
 Place notes against the waveform and beat grid, shape a slide route, and test the arrangement without leaving the app.
 
-![Chart Studio with slide tools, route presets, waveform, beat snapping, and export controls](docs/screenshots/editor-desktop.png)
-
-### Make it feel right
-
-| Character themes and appearance | Keyboard and flick controls | Sound and timing |
-| --- | --- | --- |
-| ![Character theme selection and stage appearance settings](docs/screenshots/themes-desktop.png) | ![Six customizable lane keys, layouts, and flick behavior](docs/screenshots/controls-desktop.png) | ![Note speed, music and hit sound volume, sound styles, timing, and practice mode](docs/screenshots/sound-desktop.png) |
+![Emu-themed Chart Studio with slide tools, route presets, waveform, beat snapping, and export controls](docs/screenshots/editor-desktop.png)
 
 ### Bring a video and keep your progress
 
@@ -72,12 +64,6 @@ Place notes against the waveform and beat grid, shape a slide route, and test th
 | <img src="docs/screenshots/video-controls.png" alt="Song panel with imported video, video toggle, and per-song delay" width="310"> | <img src="docs/screenshots/accounts.png" alt="Google and Discord sign-in dialog" width="430"> |
 
 The sign-in image shows the provider selection screen; signing in is optional for playing locally.
-
-### Smaller screen, same six lanes
-
-| Mobile library | Mobile stage | Mobile results |
-| --- | --- | --- |
-| ![Portrait music library](docs/screenshots/library-mobile.png) | ![Portrait gameplay with Miku's illustrated background](docs/screenshots/game-mobile.png) | ![Compact results with all statistics and both action buttons visible](docs/screenshots/results-mobile.png) |
 
 ## Run locally
 
