@@ -25,6 +25,7 @@ let videoPlayPending=false, videoPlayToken=0;
 const bufferCache=new Map(), analyses=new Map(), imported=new Map();
 const videoFiles=new Map(), videoUrls=new Map();
 let previewStart=0, previewOffset=0, previewPlaying=false;
+let selectionPreview=null, selectionPreviewSongId=null, selectionPreviewUrl=null;
 let state=null, editorChart=null, editorPage=0, noteType='tap', editorDirty=false, loading=false, pendingAudioSong=null, pendingVideoSong=null;
 const pressed=new Set(), keyboardLanes=new Map(), pointers=new Map(), flickKeys=new Set();
 let toastTimer, captureBinding=null;
@@ -52,7 +53,35 @@ function applyAppearance() {
   $('#gameKeys').textContent=`${settings.keys.map(keyLabel).join(' · ')}  /  ↑ ${settings.flickMode==='tap'?'TAP ASSIST':keyLabel(settings.flickKey)}`;
   $$('.lane-labels span').slice(1).forEach((el,i)=>el.textContent=keyLabel(settings.keys[i]));
 }
-function setView(next) {view=next;for(const id of ['library','game','editor'])$('#'+id).classList.toggle('hidden',id!==next);document.body.dataset.view=next;window.scrollTo(0,0);}
+function setView(next) {if(next!=='library')stopSelectionPreview();view=next;for(const id of ['library','game','editor'])$('#'+id).classList.toggle('hidden',id!==next);document.body.dataset.view=next;window.scrollTo(0,0);}
+function updateSelectionPreviewButton() {const button=$('#previewSong');if(button){const playing=selectionPreviewSongId===String(selected?.id);button.textContent=playing?'Ⅱ Stop preview':'▶ Preview song';button.setAttribute('aria-pressed',String(playing));}}
+function stopSelectionPreview() {
+  if(selectionPreview){selectionPreview.onloadedmetadata=null;selectionPreview.onseeked=null;selectionPreview.ontimeupdate=null;selectionPreview.onended=null;selectionPreview.onerror=null;selectionPreview.pause();selectionPreview.removeAttribute('src');selectionPreview.load();selectionPreview=null;}
+  if(selectionPreviewUrl){URL.revokeObjectURL(selectionPreviewUrl);selectionPreviewUrl=null;}
+  selectionPreviewSongId=null;updateSelectionPreviewButton();
+}
+function playSelectionPreview(song) {
+  stopSelectionPreview();
+  const file=imported.get(song.id),url=file?URL.createObjectURL(file):manifest[song.id]?.audio||song.audio;
+  if(!url)return;
+  if(file)selectionPreviewUrl=url;
+  const audio=new Audio(url),songId=String(song.id);
+  selectionPreview=audio;selectionPreviewSongId=songId;audio.preload='metadata';audio.volume=0;
+  let excerptStart=0;
+  audio.onloadedmetadata=()=>{
+    if(selectionPreview!==audio)return;
+    const duration=Number.isFinite(audio.duration)?audio.duration:song.duration||0;
+    excerptStart=Math.min(30,duration*.25,Math.max(0,duration-15));
+    if(excerptStart>0.1)audio.currentTime=excerptStart;
+    else audio.volume=Math.min(1,settings.volume*.45);
+  };
+  audio.onseeked=()=>{if(selectionPreview===audio)audio.volume=Math.min(1,settings.volume*.45);};
+  audio.ontimeupdate=()=>{if(selectionPreview===audio&&audio.currentTime-excerptStart>=15)stopSelectionPreview();};
+  audio.onended=()=>{if(selectionPreview===audio)stopSelectionPreview();};
+  audio.onerror=()=>{if(selectionPreview===audio){stopSelectionPreview();toast('Song preview unavailable. Try playing the song.');}};
+  updateSelectionPreviewButton();
+  void audio.play().catch(()=>{if(selectionPreview===audio){stopSelectionPreview();toast('Could not start this song preview.');}});
+}
 function renderLibrary() {
   const hostedSongs=getHostedSongs(songs,manifest);
   let list=hostedSongs.filter(song=>{const query=$('#search').value.toLowerCase();return `${song.title} ${song.japanese} ${song.artist} ${song.group}`.toLowerCase().includes(query)&&(filter!=='ready'||ready(song))&&(filter!=='favorite'||favorites.has(song.id))&&(filter!=='charts'||charts[song.id]);});
@@ -62,7 +91,7 @@ function renderLibrary() {
   $('#songGrid').innerHTML=list.slice(0,limit).map(song=>`<button class="song-card ${song.id===selected?.id?'selected':''}" data-song="${song.id}" aria-label="Select ${safe(song.title)}" aria-pressed="${song.id===selected?.id}"><div class="cover-wrap" style="--hue:${(Number(song.id)*47||220)%360}">${cover(song)?`<img src="${safe(cover(song))}" alt="${safe(song.title)} cover" loading="lazy">`:''}<span class="card-badge">${charts[song.id]?'MY CHART':ready(song)?'READY TO PLAY':'CATALOG'}</span>${song.id===selected?.id?'<span class="selected-check">✓</span>':''}</div><div class="card-title">${safe(song.title)}</div><div class="card-artist">${safe(song.artist)}</div></button>`).join('')||'<p class="empty">No songs here yet. Try a different search or add your own audio.</p>';
   $('#moreSongs').classList.toggle('hidden',list.length<=limit);
   $$('.song-card img').forEach(img=>img.onerror=()=>img.style.visibility='hidden');
-  $$('.song-card').forEach(button=>button.onclick=()=>{void tileClick();stopPreview();selected=songs.find(song=>String(song.id)===button.dataset.song);renderLibrary();renderDetail();if(innerWidth<761)$('#songDetail').scrollIntoView({behavior:'smooth',block:'start'});});
+  $$('.song-card').forEach(button=>button.onclick=()=>{void tileClick();stopPreview();selected=songs.find(song=>String(song.id)===button.dataset.song);playSelectionPreview(selected);renderLibrary();renderDetail();if(innerWidth<761)$('#songDetail').scrollIntoView({behavior:'smooth',block:'start'});});
 }
 function renderDetail() {
   const song=selected;
@@ -77,6 +106,7 @@ function renderDetail() {
     <p class="small-heading">CHOOSE YOUR DIFFICULTY</p><div class="difficulties">${[['easy','EASY',6],['normal','NORMAL',12],['hard','HARD',19]].map(([id,label,n])=>`<button class="difficulty ${difficulty===id?'active':''}" data-diff="${id}">${label}<b>${n}</b></button>`).join('')}</div>
     <div class="mv-choice"><div class="mv-copy"><strong>Music video</strong><small id="mvHint">${hasVideo?(localVideo?'Saved in this browser only.':'Video included with this song.'):'No matching MMD yet. Add a local MP4 or WebM to enable video.'}</small></div><label class="mv-toggle"><input id="mvToggle" type="checkbox" aria-label="Play ${safe(song.title)} with its music video" aria-describedby="mvHint" ${videoOn?'checked':''} ${hasVideo?'':'disabled'}><span>${videoOn?'On':'Off'}</span></label><button id="addVideo" type="button" class="secondary">${localVideo?'↻ Replace':'＋ Add MMD'}</button>${hasVideo?`<div class="mv-timing"><label for="mvDelay">Video delay <small>+ if video leads music; − to skip its intro</small></label><div class="mv-timing-field"><input id="mvDelay" type="number" min="-10" max="10" step="0.05" value="${normalizeVideoDelay(videoOffsets[videoId]).toFixed(2)}" aria-label="Video delay in seconds"><span>s</span></div></div>`:''}</div>
     <p class="audio-note">${ready(song)?'● Audio ready':'○ Online audio · loads when you play'}<br>${saved?'Your saved chart is selected. Try the new demo below for fresh patterns.':'Song-specific practice chart · taps, holds & upward flicks.'}${song.estimated&&!saved?' Tempo is an estimate; adjust it in Chart Studio.':''}</p>
+    <div class="song-preview"><button id="previewSong" type="button" class="secondary" ${ready(song)?'':'disabled'}>▶ Preview song</button><small>15-second music preview · starts when you select a song</small></div>
     <button id="playSong" class="primary full" ${loading?'disabled':''}>${loading?'Preparing audio…':'▶ &nbsp; Play '+(saved?'my chart':'demo')}</button>
     <div class="detail-controls"><button id="openEditor" class="secondary">＋ Chart Studio</button><button id="attachAudio" class="secondary">↑ Replace audio</button></div>${saved?'<button id="playDemo" class="text-button full">Try the new demo arrangement</button>':''}
     <div class="key-guide"><div>${settings.keys.map(key=>`<kbd>${safe(keyLabel(key))}</kbd>`).join('')}</div><p>↑ Flick: ${settings.flickMode==='tap'?'tap assist':safe(keyLabel(settings.flickKey))+' + lane'} · or swipe up</p><button id="editBindings" class="text-button">Customize controls →</button><p class="help">${records[song.id]?'Personal best · '+Number(records[song.id]).toLocaleString():'Hit the line. Follow the rhythm.'}</p></div>`;
@@ -86,6 +116,7 @@ function renderDetail() {
   $('#mvToggle').onchange=event=>{videoChoices={...videoChoices,[videoId]:event.target.checked};write('six-video-choices',videoChoices);event.target.nextElementSibling.textContent=event.target.checked?'On':'Off';};
   $('#mvDelay')?.addEventListener('change',event=>{const delay=normalizeVideoDelay(event.target.value);videoOffsets={...videoOffsets,[videoId]:delay};write('six-video-offsets',videoOffsets);event.target.value=delay.toFixed(2);});
   $('#addVideo').onclick=()=>{pendingVideoSong=song;$('#videoFile').click();};
+  updateSelectionPreviewButton();$('#previewSong').onclick=()=>{if(selectionPreviewSongId===String(song.id))stopSelectionPreview();else playSelectionPreview(song);};
   $('#playSong').onclick=()=>startGame(saved||null);$('#playDemo')?.addEventListener('click',()=>startGame(null));$('#openEditor').onclick=openEditor;
   $('#attachAudio').onclick=()=>{pendingAudioSong=song;$('#audioFile').click();};$('#editBindings').onclick=()=>showSettings('controls');
 }
@@ -162,7 +193,7 @@ function syncGameVideo() {
 function clearInputs() {pressed.clear();keyboardLanes.clear();pointers.clear();flickKeys.clear();}
 function refreshPressed() {pressed.clear();for(const lane of keyboardLanes.values())pressed.add(lane);for(const pointer of pointers.values())pressed.add(pointer.lane);}
 async function startGame(chart,fromEditor=false) {
-  if(loading)return;const song=selected,requestedView=view;loading=true;if(view==='library')renderDetail();
+  if(loading)return;stopSelectionPreview();const song=selected,requestedView=view;loading=true;if(view==='library')renderDetail();
   try{
     toast('Preparing your live…');stopPreview();const audio=await audioInit();const buffer=await getBuffer(song);await audio.loadOriginal();if(selected!==song||view!==requestedView)return;
     const custom=!!chart;chart=validateChart(chart||arrangement(song,buffer));if(!chart.notes.length)throw Error('Add a few notes to your chart before playing.');
@@ -289,11 +320,11 @@ canvas.addEventListener('pointermove',event=>{
 });
 function pointerEnd(event) {const pointer=pointers.get(event.pointerId);pointers.delete(event.pointerId);if(pointer)release();}
 canvas.addEventListener('pointerup',pointerEnd);canvas.addEventListener('pointercancel',pointerEnd);
-window.addEventListener('blur',()=>{if(view==='game'&&state&&!state.paused&&!state.finished)pauseGame();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&view==='game'&&state&&!state.paused&&!state.finished)pauseGame();});
+window.addEventListener('blur',()=>{if(view==='game'&&state&&!state.paused&&!state.finished)pauseGame();});document.addEventListener('visibilitychange',()=>{if(document.hidden){stopSelectionPreview();if(view==='game'&&state&&!state.paused&&!state.finished)pauseGame();}});
 $('#pauseGame').onclick=pauseGame;$('#exitGame').onclick=()=>{if(state&&!state.finished&&!state.paused)pauseGame();else leaveGame();};
 
 async function openEditor() {
-  if(loading)return;stopPreview();const song=selected;let buffer=bufferCache.get(song.id);
+  if(loading)return;stopSelectionPreview();stopPreview();const song=selected;let buffer=bufferCache.get(song.id);
   if(!charts[song.id]&&!buffer&&ready(song)){try{loading=true;toast('Preparing your song’s chart…');buffer=await getBuffer(song);}catch{toast('Audio will load when you preview.');}finally{loading=false;}if(selected!==song)return;}
   editorChart=structuredClone(charts[song.id]||arrangement(song,buffer));editorPage=0;editorDirty=false;
   $('#chartBpm').value=editorChart.bpm;$('#chartOffset').value=editorChart.offset;$('#editorTitle').textContent=song.title;
@@ -369,7 +400,7 @@ function useVideoFile(id,file) {const key=String(id),old=videoUrls.get(key);if(o
 async function restoreVideos() {try{const database=await db(),entries=await new Promise((resolve,reject)=>{const request=database.transaction('videos').objectStore('videos').getAll();request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});for(const item of entries)if(item?.file)useVideoFile(item.id,item.file);}catch{toast('Saved videos could not be restored in this browser.');}}
 async function restoreAudio() {try{const database=await db(),entries=await new Promise((resolve,reject)=>{const request=database.transaction('songs').objectStore('songs').getAll();request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});for(const item of entries){imported.set(item.id,item.file);const index=songs.findIndex(song=>song.id===item.id);if(item.song){if(index<0)songs.unshift(item.song);else songs[index]={...songs[index],...item.song};}}}catch{toast('Local audio storage is unavailable. Imports will last for this session.');}}
 $('#customSong').onclick=()=>{pendingAudioSong=null;$('#audioFile').click();};
-$('#audioFile').onchange=async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;const target=pendingAudioSong;try{if(file.size>200000000)throw Error('Choose an audio file under 200 MB.');await audioInit();const buffer=await audioContext.decodeAudioData(await file.arrayBuffer()),song=target||{id:'custom-'+Date.now(),title:file.name.replace(/\.[^.]+$/,''),japanese:'Your music, your chart',artist:'Local audio',group:'CUSTOM TRACK',bpm:120,estimated:true,featured:false};if(!target)songs.unshift(song);imported.set(song.id,file);bufferCache.set(song.id,buffer);analyses.delete(song.id);song.duration=buffer.duration;song.localAudio=true;selected=song;try{await storeAudio({id:song.id,file,song});toast('Audio added and saved on this device');}catch{toast('Audio added for this session; browser storage is unavailable.');}renderLibrary();renderDetail();}catch(error){toast('Could not load audio: '+error.message);}};
+$('#audioFile').onchange=async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;stopSelectionPreview();const target=pendingAudioSong;try{if(file.size>200000000)throw Error('Choose an audio file under 200 MB.');await audioInit();const buffer=await audioContext.decodeAudioData(await file.arrayBuffer()),song=target||{id:'custom-'+Date.now(),title:file.name.replace(/\.[^.]+$/,''),japanese:'Your music, your chart',artist:'Local audio',group:'CUSTOM TRACK',bpm:120,estimated:true,featured:false};if(!target)songs.unshift(song);imported.set(song.id,file);bufferCache.set(song.id,buffer);analyses.delete(song.id);song.duration=buffer.duration;song.localAudio=true;selected=song;try{await storeAudio({id:song.id,file,song});toast('Audio added and saved on this device');}catch{toast('Audio added for this session; browser storage is unavailable.');}renderLibrary();renderDetail();}catch(error){toast('Could not load audio: '+error.message);}};
 $('#videoFile').onchange=async event=>{const file=event.target.files[0];event.target.value='';const song=pendingVideoSong;pendingVideoSong=null;if(!file||!song)return;try{if(file.size>200000000)throw Error('Choose an MP4 or WebM under 200 MB.');if(!/^video\/(mp4|webm)$/.test(file.type)&&!(/\.(mp4|webm)$/i.test(file.name)))throw Error('Choose an MP4 or WebM video.');const probe=document.createElement('video');probe.preload='metadata';probe.muted=true;const probeUrl=URL.createObjectURL(file);try{await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Video took too long to open. Try a smaller MP4 or WebM.')),10000);probe.onloadedmetadata=()=>{clearTimeout(timer);resolve();};probe.onerror=()=>{clearTimeout(timer);reject(Error('This video format is not supported by your browser.'));};probe.src=probeUrl;});}finally{URL.revokeObjectURL(probeUrl);probe.removeAttribute('src');probe.load();}useVideoFile(song.id,file);try{await storeVideo({id:String(song.id),file});toast('MMD video saved in this browser');}catch{toast('Video added for this session; browser storage is unavailable.');}renderDetail();}catch(error){toast('Could not add video: '+error.message);}};
 $('#search').oninput=()=>{limit=24;renderLibrary();};$('#sort').onchange=renderLibrary;$$('[data-filter]').forEach(button=>button.onclick=()=>{filter=button.dataset.filter;limit=24;$$('[data-filter]').forEach(b=>b.classList.toggle('active',b===button));renderLibrary();});$('#moreSongs').onclick=()=>{limit+=48;renderLibrary();};
 $('#home').onclick=event=>{event.preventDefault();if(view==='game'){if(!state?.finished&&!state?.paused)pauseGame();else leaveGame();}else if(view==='editor')$('#editorBack').click();else window.scrollTo({top:0,behavior:'smooth'});};
@@ -393,7 +424,7 @@ document.addEventListener('keydown',event=>{
 },true);
 $('#resetKeys').onclick=()=>{settings.keys=[...DEFAULT_KEYS];settings.flickKey='shift';captureBinding=null;renderBindings();applyAppearance();persistSettings();$('#bindingStatus').textContent='Default controls restored.';};
 $('#keyPreset').onchange=event=>{if(event.target.value==='default')settings.keys=[...DEFAULT_KEYS];else if(event.target.value==='asdf')settings.keys=['a','s','d','j','k','l'];else return;if(settings.keys.includes(settings.flickKey))settings.flickKey='shift';captureBinding=null;renderBindings();applyAppearance();persistSettings();};
-for(const [id,key] of [['speed','travel'],['volume','volume'],['hitVolume','hitVolume'],['backgroundDim','backgroundDim'],['noteScale','noteScale']])$('#'+id).oninput=event=>{settings[key]=Number(event.target.value);if(id==='speed')$('#speedValue').textContent=settings.travel.toFixed(1)+' s';if(musicGain)musicGain.gain.value=settings.volume;applyAppearance();persistSettings();};
+for(const [id,key] of [['speed','travel'],['volume','volume'],['hitVolume','hitVolume'],['backgroundDim','backgroundDim'],['noteScale','noteScale']])$('#'+id).oninput=event=>{settings[key]=Number(event.target.value);if(id==='speed')$('#speedValue').textContent=settings.travel.toFixed(1)+' s';if(musicGain)musicGain.gain.value=settings.volume;if(selectionPreview)selectionPreview.volume=Math.min(1,settings.volume*.45);applyAppearance();persistSettings();};
 for(const id of ['hitSound','flickMode','laneMode'])$('#'+id).onchange=event=>{settings[id]=event.target.value;persistSettings();applyAppearance();};
 $('#offset').onchange=event=>{settings.offset=Math.max(-500,Math.min(500,Number(event.target.value)||0));persistSettings();};
 for(const id of ['practice','effects'])$('#'+id).onchange=event=>{settings[id]=event.target.checked;persistSettings();};

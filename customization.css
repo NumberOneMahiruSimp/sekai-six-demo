@@ -1,5 +1,8 @@
 /* Shared settings and gameplay refinements, independent of the character palette. */
 .mobile-selected{display:none}
+.song-preview{display:flex;align-items:center;gap:10px;margin:-4px 0 14px}
+.song-preview .secondary{flex:none;min-height:36px;padding:8px 12px;color:var(--accent-dark);border-color:var(--accent)}
+.song-preview small{font-size:10px;line-height:1.4;color:var(--muted)}
 #settingsDialog{max-width:580px;max-height:90dvh;overflow-y:auto;padding:26px 28px}
 #settingsDialog .dialog-heading{justify-content:space-between;align-items:center;margin-bottom:20px}
 #settingsDialog .dialog-heading h2{font-size:27px;letter-spacing:-.8px}
@@ -35,6 +38,7 @@
 #appearanceSettings a{text-decoration:underline;color:var(--accent-dark)}
 @media(max-width:760px){#settingsDialog{padding:22px 17px;max-height:94dvh;width:94%}#settingsDialog .dialog-heading h2{font-size:23px}.settings-tabs button{font-size:11px}.settings-columns{gap:12px}.key-bindings{gap:4px}.binding b{font-size:12px}.binding small{font-size:7px}.theme-options{grid-template-columns:1fr}.theme-option small{font-size:10px}.game-song{max-width:44%;top:86px}.game-bottom{bottom:14px;gap:6px}.game-bottom #gameKeys{font-size:7px;max-width:55%}.settings-done{position:sticky;bottom:0}.library-foot{padding-bottom:12px}}
 @media(max-width:760px){body[data-view="library"] .mobile-selected{display:flex;position:fixed;bottom:0;left:0;right:0;align-items:center;justify-content:space-between;gap:15px;z-index:5;background:var(--surface);border-top:1px solid var(--line);padding:10px 17px max(10px,env(safe-area-inset-bottom));box-shadow:0 -5px 20px #4930400b}.mobile-song{min-width:0;flex:1;text-align:left;background:none;padding:0}.mobile-song .eyebrow{display:block;font-size:8px;margin-bottom:5px}.mobile-song strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}.mobile-selected .primary{min-width:90px}body[data-view="library"]{padding-bottom:70px}}
+@media(max-width:760px){.song-preview{grid-column:1/-1;flex-wrap:wrap}.song-preview small{flex:1;min-width:120px}}
 #authDialog{max-width:430px}
 .auth-copy{color:var(--muted);font-size:13px;line-height:1.7;margin:0 0 20px}
 .auth-actions{display:grid;gap:10px;margin-bottom:16px}

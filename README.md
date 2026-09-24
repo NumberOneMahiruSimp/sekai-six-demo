@@ -20,7 +20,7 @@ A personal, browser-based rhythm game inspired by Project SEKAI: a colorful song
 
 | Feature | Included |
 | --- | --- |
-| Music library | **40 hosted audio tracks**, covers, search, favorites, and three practice difficulties. The full **721-song metadata catalog** remains in `catalog.json`; entries without hosted audio are hidden from the website library. |
+| Music library | **40 hosted audio tracks**, covers, 15-second selection previews, search, favorites, and three practice difficulties. The full **721-song metadata catalog** remains in `catalog.json`; entries without hosted audio are hidden from the website library. |
 | Six-key gameplay | Keyboard and touch input; taps, holds, lane-switching slides, upward flicks, and critical/accent notes. |
 | Chart Studio | Waveform, beat grid, BPM/offset adjustment, beat snapping, five slide routes, test play, and JSON import/export. |
 | Personal controls | Rebind every lane and the flick modifier, choose a keyboard preset, or enable tap-assist flicks. |
@@ -72,6 +72,7 @@ Open [http://127.0.0.1:5173](http://127.0.0.1:5173). Keep the server running. Us
 ## Play
 
 - Default lane keys are **D F G / J K L**. Change them in **Settings → Controls**; duplicate and reserved bindings are rejected.
+- Select a song to hear a 15-second music preview. Use **Stop preview** or **Preview song** in its details to stop or replay it; the preview stops when you start playing.
 - Tap at the judgment line. Keep a hold pressed through its tail. For slides, switch to the lane underneath the path, or follow it with a finger.
 - Pink flick notes use **Shift + lane** on keyboard or an upward swipe on touch. Tap assist is available in Controls.
 - **Escape** pauses. Resume includes a count-in; re-hold any active long notes during it. Practice mode keeps the song going at zero life.
