@@ -1,0 +1,13 @@
+.git/
+.vercel/
+.claude/
+.codex/
+.agents/
+node_modules/
+backups/
+qa/
+docs/
+tests/
+scripts/
+.env
+.env.*
