@@ -57,14 +57,6 @@ Place notes against the waveform and beat grid, shape a slide route, and test th
 
 ![Emu-themed Chart Studio with slide tools, route presets, waveform, beat snapping, and export controls](docs/screenshots/editor-desktop.png)
 
-### Bring a video and keep your progress
-
-| Optional music video | Optional account |
-| --- | --- |
-| <img src="docs/screenshots/video-controls.png" alt="Song panel with imported video, video toggle, and per-song delay" width="310"> | <img src="docs/screenshots/accounts.png" alt="Google and Discord sign-in dialog" width="430"> |
-
-The sign-in image shows the provider selection screen; signing in is optional for playing locally.
-
 ## Run locally
 
 Requires Node.js 18 or newer. The basic game has no install-time dependencies.
